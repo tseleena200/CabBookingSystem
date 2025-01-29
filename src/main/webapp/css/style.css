@@ -1,14 +1,13 @@
-
 html, body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-
-/* Loading Screen */
+/* LOADING SCREEN */
 #loading-screen {
     position: fixed;
     width: 100%;
@@ -19,11 +18,13 @@ html, body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size: 50px;
+    font-weight: bold;
     font-family: Arial, sans-serif;
     z-index: 9999;
 }
 
-/*  letter style */
+/* Letter Animation */
 .letter {
     font-size: 90px;
     font-weight: bold;
@@ -32,7 +33,6 @@ html, body {
     animation: fadeInColor 2s forwards;
 }
 
-/* Animation effect for each letter */
 .letter:nth-child(1) { animation-delay: 0.2s; }
 .letter:nth-child(2) { animation-delay: 0.4s; }
 .letter:nth-child(3) { animation-delay: 0.6s; }
@@ -41,23 +41,13 @@ html, body {
 .letter:nth-child(6) { animation-delay: 1.2s; }
 .letter:nth-child(7) { animation-delay: 1.4s; }
 
-/* Animation for letter fade-in and color transition */
 @keyframes fadeInColor {
-    0% {
-        opacity: 0;
-        color: white;
-    }
-    50% {
-        opacity: 1;
-        color: lightgray;
-    }
-    100% {
-        opacity: 1;
-        color: yellow;
-    }
+    0% { opacity: 0; color: white; }
+    50% { opacity: 1; color: lightgray; }
+    100% { opacity: 1; color: #FFCC00; }
 }
 
-/* Fade out loading screen */
+/* Fade out animation for loading screen */
 .fade-out {
     animation: fadeOut 1s forwards;
 }
@@ -69,4 +59,116 @@ html, body {
     }
 }
 
-/*  End of Loading Screen */
+/* AUTH PAGE */
+.auth-page {
+    height: 100vh;  /* Full screen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url("../images/pexels-sanaan-2989727.jpg") no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+/* AUTH CONTAINER */
+.auth-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* LEFT SIDE - LOGO */
+.left {
+    width: 40%;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: left;
+    display: flex;
+    flex-wrap: wrap;
+    word-break: break-word;
+}
+
+.left .yellow {
+    color: #FFCC00;
+}
+
+/* RIGHT SIDE - TEXT & BUTTONS */
+.right {
+    width: 60%;
+    text-align: left;
+}
+
+.right h2 {
+    font-size: 48px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.right p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* AUTH BUTTONS */
+.auth-buttons {
+    display: flex;
+    gap: 25px;
+}
+
+/* BUTTON STYLE */
+.auth-buttons .btn {
+    display: inline-block;
+    padding: 18px 40px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    background: #FFCC00;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* BUTTON HOVER */
+.auth-buttons .btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+    .auth-container {
+        flex-direction: column;
+        width: 90%;
+        text-align: center;
+    }
+
+    .left {
+        width: 100%;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .right {
+        width: 100%;
+    }
+
+    .auth-buttons {
+        justify-content: center;
+    }
+
+    .trusted-container {
+        flex-direction: column;
+        text-align: center;
+    }
+}
