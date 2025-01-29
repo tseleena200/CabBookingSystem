@@ -1,0 +1,185 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: black;
+    margin: 0;
+}
+
+
+
+/* Register Container */
+.register-container {
+    display: flex;
+    flex-direction: row; /* Ensures form & background are side-by-side */
+    align-items: stretch; /* Makes both sections equal height */
+    width: 900px;
+    height: 650px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Register Box */
+.register-box {
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-bg {
+    width: 50%;
+    background: url('../images/pexels-sanaan-2989727.jpg') no-repeat center center/cover;
+    clip-path: ellipse(80% 100% at 100% 50%);
+}
+
+/*  End - Register  */
+
+/* Login Container */
+.login-container {
+    display: flex;
+    width: 900px;
+    height: 500px;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Login Box */
+.login-box {
+    width: 50%;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.login-bg {
+    width: 50%;
+    background: url('../images/pexels-sanaan-2989727.jpg') no-repeat center center/cover;
+    clip-path: ellipse(80% 100% at 100% 50%);
+}
+
+/*  End - Login */
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.highlight {
+    color: #FFCC00;
+    font-weight: bold;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    padding-left: 40px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s;
+}
+
+.input-group input:focus {
+    border-color: #FFCC00;
+}
+
+.input-group .icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 16px;
+}
+
+/* Forgot Password */
+.forgot-password {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: gray;
+    text-decoration: none;
+    margin-bottom: 15px;
+}
+
+/* Button */
+.btn {
+    background: black;
+    color: white;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #033351;
+    border: 4px #FFCC00;
+}
+
+/* Social Login */
+.or-text {
+    text-align: center;
+    margin: 20px 0;
+    color: gray;
+    font-size: 14px;
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.social-login button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: white;
+}
+
+.google { background: #db4437; }  /* Google Red */
+.facebook { background: #3b5998; } /* Facebook Blue */
+.apple { background: black; }  /* Apple Black */
+
+/* Register Link */
+.register-link {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.register-link a {
+    color: #FFCC00;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+
+
