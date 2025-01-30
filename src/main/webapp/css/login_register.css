@@ -163,9 +163,9 @@ h2 {
     color: white;
 }
 
-.google { background: #db4437; }  /* Google Red */
-.facebook { background: #3b5998; } /* Facebook Blue */
-.apple { background: black; }  /* Apple Black */
+.google { background: #db4437; }
+.facebook { background: #3b5998; }
+.apple { background: black; }
 
 /* Register Link */
 .register-link {

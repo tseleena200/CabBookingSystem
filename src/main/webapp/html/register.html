@@ -10,39 +10,53 @@
 <div class="register-container">
   <div class="register-box">
     <h2>Create an Account <span class="highlight">-</span></h2>
-    <form id="registerForm">
-      <div class="input-group">
-        <input type="text" id="regNumber" placeholder="Customer Registration Number" required>
+
+    <!-- ✅ Added action and method -->
+    <form id="registerForm" action="http://localhost:8080/CabBookingSystem_war_exploded/register" method="POST">
+
+
+
+    <div class="input-group">
+        <input type="text" id="regNumber" name="customer_registration_number" placeholder="Customer Registration Number" required>
         <span class="icon">🆔</span>
       </div>
+
       <div class="input-group">
-        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="text" id="name" name="full_name" placeholder="Full Name" required>
         <span class="icon">👤</span>
       </div>
+
       <div class="input-group">
-        <input type="text" id="address" placeholder="Address" required>
+        <input type="text" id="address" name="address" placeholder="Address" required>
         <span class="icon">🏠</span>
       </div>
+
       <div class="input-group">
-        <input type="text" id="nic" placeholder="NIC Number" required>
+        <input type="text" id="nic" name="nic_number" placeholder="NIC Number" required>
         <span class="icon">📜</span>
       </div>
+
       <div class="input-group">
-        <input type="email" id="email" placeholder="Email" required>
+        <input type="email" id="email" name="email" placeholder="Email" required>
         <span class="icon">📧</span>
       </div>
+
       <div class="input-group">
-        <input type="password" id="password" placeholder="Password" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
         <span class="icon">🔒</span>
       </div>
+
       <button type="submit" class="btn">Sign Up</button>
+
       <p class="or-text">Or sign up with</p>
       <div class="social-login">
         <button class="google">G</button>
         <button class="facebook">f</button>
         <button class="apple"></button>
       </div>
+
       <p class="register-link">Already have an account? <a href="login.html">Log in</a></p>
+
     </form>
   </div>
   <div class="register-bg"></div>
