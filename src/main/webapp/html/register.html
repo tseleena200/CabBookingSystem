@@ -7,32 +7,34 @@
   <link rel="stylesheet" href="../css/login_register.css">
 </head>
 <body>
+
 <div class="register-container">
   <div class="register-box">
     <h2>Create an Account <span class="highlight">-</span></h2>
 
-    <!-- ✅ Added action and method -->
-    <form id="registerForm" action="http://localhost:8080/CabBookingSystem_war_exploded/register" method="POST">
+    <!-- ✅ Form with Validation -->
+    <form id="registerForm" action="http://localhost:8080/CabBookingSystem_war_exploded/register" method="POST" onsubmit="return validateForm()">
 
-
-
-    <div class="input-group">
-        <input type="text" id="regNumber" name="customer_registration_number" placeholder="Customer Registration Number" required>
+      <div class="input-group">
+        <input type="text" id="regNumber" name="customer_registration_number" placeholder="Customer Registration Number" required
+               pattern="[A-Za-z0-9]+" title="Only letters and numbers allowed.">
         <span class="icon">🆔</span>
       </div>
 
       <div class="input-group">
-        <input type="text" id="name" name="full_name" placeholder="Full Name" required>
+        <input type="text" id="name" name="full_name" placeholder="Full Name" required
+               pattern="[A-Za-z ]+" title="Only alphabets allowed.">
         <span class="icon">👤</span>
       </div>
 
       <div class="input-group">
-        <input type="text" id="address" name="address" placeholder="Address" required>
+        <input type="text" id="address" name="address" placeholder="Address" required minlength="5">
         <span class="icon">🏠</span>
       </div>
 
       <div class="input-group">
-        <input type="text" id="nic" name="nic_number" placeholder="NIC Number" required>
+        <input type="text" id="nic" name="nic_number" placeholder="NIC Number" required
+               pattern="^\d{10}|\d{12}$" title="NIC must be either 10 or 12 digits long.">
         <span class="icon">📜</span>
       </div>
 
@@ -42,7 +44,8 @@
       </div>
 
       <div class="input-group">
-        <input type="password" id="password" name="password" placeholder="Password" required>
+        <input type="password" id="password" name="password" placeholder="Password" required minlength="6"
+               pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$" title="Must be at least 6 characters with one letter and one number.">
         <span class="icon">🔒</span>
       </div>
 
@@ -62,6 +65,16 @@
   <div class="register-bg"></div>
 </div>
 
-<script src="../js/script.js"></script>
+<script>
+  function validateForm() {
+    const password = document.getElementById("password").value;
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long.");
+      return false;
+    }
+    return true;
+  }
+</script>
+
 </body>
 </html>
