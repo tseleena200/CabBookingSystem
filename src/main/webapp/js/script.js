@@ -1,22 +1,16 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ DOM fully loaded!");
 
-    // ✅ Prevent unnecessary redirect to auth.html
+    // ✅ LOADING SCREEN HANDLING
     let loadingScreen = document.getElementById("loading-screen");
 
     if (loadingScreen) {
-        // ✅ Only redirect if the user is NOT logged in
-        let userSession = sessionStorage.getItem("userLoggedIn");
-        if (!userSession) {
+        setTimeout(() => {
+            loadingScreen.classList.add("fade-out");
             setTimeout(() => {
-                loadingScreen.classList.add("fade-out");
-
-                // ✅ Redirect ONLY IF NOT LOGGED IN
-                setTimeout(() => {
-                    window.location.href = "auth.html";
-                }, 500);
-            }, 3000);
-        }
+                loadingScreen.style.display = "none";
+            }, 500);
+        }, 2000); // ✅ Show loading screen for 2 seconds
     }
 
     // ✅ LOGIN FORM HANDLING
@@ -31,37 +25,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.log("🔍 Attempting login for:", email);
 
-            // ✅ Send login request to servlet
             fetch("http://localhost:8080/CabBookingSystem_war_exploded/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
+                credentials: "include",  // ✅ Ensure session cookies work
                 body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
             })
                 .then(response => response.text())
                 .then(data => {
-                    console.log("🔍 Server Response:", data);
+                    console.log("🔍 Server Response:", `"${data.trim()}"`);
 
-                    if (data.trim() === "success") {
-                        alert("✅ Login successful! Redirecting...");
-
-                        // ✅ Store session info in sessionStorage
-                        sessionStorage.setItem("userLoggedIn", "true");
-
-                        // ✅ Redirect to homepage.jsp
+                    if (data.trim() === "admin") {
+                        alert("✅ Welcome, Admin!");
+                        sessionStorage.setItem("userRole", "admin");
+                        window.location.href = "http://localhost:8080/CabBookingSystem_war_exploded/admin/admin_panel.jsp";
+                    } else if (data.trim() === "employee") {
+                        alert("✅ Login successful!");
+                        sessionStorage.setItem("userRole", "employee");
                         window.location.href = "http://localhost:8080/CabBookingSystem_war_exploded/jsp/homepage.jsp";
-
                     } else {
-                        alert("❌ Invalid credentials. Please try again.");
+                        document.getElementById("errorMessage").textContent = "❌ Invalid email or password!";
+                        document.getElementById("errorMessage").style.display = "block";
                     }
                 })
                 .catch(error => {
                     console.error("🚨 Login request failed:", error);
-                    alert("⚠️ Server error. Please try again later.");
+                    document.getElementById("errorMessage").textContent = "⚠️ Server error. Please try again.";
+                    document.getElementById("errorMessage").style.display = "block";
                 });
         });
     } else {
         console.warn("⚠️ No login form found on this page.");
+    }
+
+    // ✅ LOGOUT FUNCTIONALITY
+    let logoutButton = document.getElementById("logoutBtn");
+    if (logoutButton) {
+        logoutButton.addEventListener("click", function () {
+            sessionStorage.removeItem("userRole"); // ✅ Remove session
+            alert("👋 Logged out successfully!");
+            window.location.href = "http://localhost:8080/CabBookingSystem_war_exploded/html/login.html";
+        });
     }
 });

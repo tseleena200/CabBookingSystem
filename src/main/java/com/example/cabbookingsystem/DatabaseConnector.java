@@ -9,7 +9,7 @@ public class DatabaseConnector {
     private static final String USER = "root";
     private static final String PASSWORD = "admin";
 
-    private static volatile DatabaseConnector instance;
+    private static volatile DatabaseConnector instance; // Ensure thread safety
     private Connection connection;
 
     private DatabaseConnector() {

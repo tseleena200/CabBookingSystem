@@ -24,28 +24,32 @@ public class LoginServlet extends HttpServlet {
         // Fetch User from Database
         User user = userDAO.getUserByEmail(email);
         if (user == null) {
-            System.out.println("No user found for email: " + email);
+            System.out.println("[LoginServlet] No user found for email: " + email);
             response.getWriter().write("failure");
             return;
         }
 
-
+        // Hash input password for comparison
         String inputHashedPassword = PasswordUtil.hashPassword(password);
-        System.out.println(" Hashed Input Password: " + inputHashedPassword);
-        System.out.println(" Stored Hash in DB: " + user.getPassword());
+        System.out.println("[LoginServlet] Hashed Input Password: " + inputHashedPassword);
+        System.out.println("[LoginServlet] Stored Hash in DB: " + user.getPassword());
 
-        // Compare Hashed Passwords
+        // Compare Passwords
         if (inputHashedPassword.equals(user.getPassword())) {
-            System.out.println(" Login successful!");
+            System.out.println("[LoginServlet] Login successful for: " + email);
 
-            // Start session to keep user logged in
+            // Start user session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            response.getWriter().write("success");
-
+            // Redirect Admin to Admin Panel, Employees to Employee Page
+            if ("admin@megacitycab.com".equals(email)) {
+                response.getWriter().write("admin");
+            } else {
+                response.getWriter().write("employee");
+            }
         } else {
-            System.out.println("Password mismatch for email: " + email);
+            System.out.println("[LoginServlet] Password mismatch for email: " + email);
             response.getWriter().write("failure");
         }
     }

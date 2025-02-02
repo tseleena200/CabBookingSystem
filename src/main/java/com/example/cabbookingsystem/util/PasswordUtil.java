@@ -16,9 +16,17 @@ public class PasswordUtil {
                 if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
             }
+
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Error hashing password", e);
         }
+    }
+
+    // ✅ Method to Generate Hashed Password for Admin
+    public static void main(String[] args) {
+        String adminPassword = "admin123";  // Set the current admin password
+        String hashedPassword = hashPassword(adminPassword); // Hash it
+        System.out.println("🔒 Hashed Admin Password: " + hashedPassword);
     }
 }

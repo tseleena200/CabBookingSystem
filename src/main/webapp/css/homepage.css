@@ -1,0 +1,200 @@
+/* ✅ General Styles */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    color: white;
+}
+
+/* ✅ Fixed & Improved Navigation Bar */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.95); /* Slight transparency for premium look */
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/* ✅ Logo Styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 50px; /* Adjust the logo size */
+    height: auto;
+}
+
+.logo-text {
+    font-size: 25px;
+    font-weight: bold;
+    color: #FFCC00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ✅ Navbar Links - Centering */
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0 auto;
+}
+
+/* ✅ Navbar Links - Spacing & Hover Effects */
+.nav-links li {
+    position: relative;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Underline Hover Effect */
+.nav-links a:hover {
+    color: #FFCC00;
+}
+
+.nav-links a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #FFCC00;
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* ✅ Logout Button - Aligned to Right */
+.logout-container {
+    display: flex;
+    align-items: center;
+}
+
+.logout-btn {
+    background: #FFCC00;
+    color: black;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    margin-right: 30px; /* Moves logout button to the right */
+}
+
+.logout-btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+/* ✅ Hero Section - Carousel */
+.hero {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.swiper-slide img {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.overlay-text h1 {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.overlay-text p {
+    font-size: 20px;
+}
+
+.btn {
+    background: #FFCC00;
+    color: black;
+    padding: 12px 25px;
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+/* ✅ Booking Form */
+.booking-form {
+    background: #111;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.booking-form h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.booking-form form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
+
+.booking-form input,
+.booking-form button {
+    padding: 10px;
+    width: 250px;
+    font-size: 16px;
+}
+
+.booking-form button {
+    background: #FFCC00;
+    color: black;
+    border: none;
+    cursor: pointer;
+}

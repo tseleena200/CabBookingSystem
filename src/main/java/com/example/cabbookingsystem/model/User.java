@@ -8,8 +8,9 @@ public class User {
     private String nicNumber;
     private String email;
     private String password;
+    private String role; // ✅ Role field added
 
-    // Constructor
+    // ✅ Constructor for Employees (default role)
     public User(String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String password) {
         this.customerRegistrationNumber = customerRegistrationNumber;
         this.fullName = fullName;
@@ -17,9 +18,21 @@ public class User {
         this.nicNumber = nicNumber;
         this.email = email;
         this.password = password;
+        this.role = "employee"; // ✅ Default role set to "employee"
     }
 
-    // Getters and Setters
+    // ✅ Constructor for Admins & Employees (explicit role)
+    public User(String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String password, String role) {
+        this.customerRegistrationNumber = customerRegistrationNumber;
+        this.fullName = fullName;
+        this.address = address;
+        this.nicNumber = nicNumber;
+        this.email = email;
+        this.password = password;
+        this.role = role; // ✅ Allows specifying "admin" or "employee"
+    }
+
+    // ✅ Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -40,4 +53,21 @@ public class User {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
+
+    public String getRole() { return role; }  // ✅ Getter for role
+    public void setRole(String role) { this.role = role; } // ✅ Setter for role
+
+    // ✅ Override toString for debugging
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", customerRegistrationNumber='" + customerRegistrationNumber + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", nicNumber='" + nicNumber + '\'' +
+                ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
+                '}';
+    }
 }
