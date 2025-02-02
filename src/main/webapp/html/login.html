@@ -12,10 +12,10 @@
     <div class="login-box">
         <h2>Log in to <span class="highlight">Mega CityCab</span></h2>
 
-        <!-- ✅ Error message container -->
+        <!-- Error message container -->
         <p id="errorMessage" class="error-message" style="display: none; color: red;"></p>
 
-        <!-- ✅ Login Form -->
+        <!--  Login Form -->
         <form id="loginForm">
             <div class="input-group">
                 <input type="email" id="email" name="email" placeholder="Email" required>
@@ -33,12 +33,12 @@
 
 <script>
     document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // ✅ Prevent default form submission
+        event.preventDefault(); //  Prevent default form submission
 
         let email = document.getElementById("email").value.trim();
         let password = document.getElementById("password").value.trim();
 
-        console.log("🔍 Attempting login for:", email);
+        console.log(" Attempting login for:", email);
 
         fetch("http://localhost:8080/CabBookingSystem_war_exploded/login", {
             method: "POST",
@@ -49,17 +49,17 @@
         })
             .then(response => response.text())
             .then(data => {
-                console.log("🔍 Server Response:", `"${data.trim()}"`);
+                console.log(" Server Response:", `"${data.trim()}"`);
 
                 if (data.trim() === "admin") {
                     alert("✅ Welcome, Admin!");
                     sessionStorage.setItem("userLoggedIn", "admin");
-                    window.location.href = "../admin/admin_panel.jsp"; // ✅ Redirect Admins
+                    window.location.href = "../admin/admin_panel.jsp"; //  Redirect Admins
 
                 } else if (data.trim() === "employee") {
                     alert("✅ Login successful!");
                     sessionStorage.setItem("userLoggedIn", "employee");
-                    window.location.href = "../jsp/homepage.jsp"; // ✅ Redirect Employees
+                    window.location.href = "../jsp/homepage.jsp"; //  Redirect Employees
 
                 } else {
                     document.getElementById("errorMessage").textContent = "❌ Invalid email or password!";

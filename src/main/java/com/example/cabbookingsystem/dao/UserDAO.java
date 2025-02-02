@@ -27,7 +27,7 @@ public class UserDAO {
         return instance;
     }
 
-    // ✅ REGISTER USER - Now includes the role field
+    //  REGISTER USER
     public boolean registerUser(User user) {
         String query = "INSERT INTO users (customer_registration_number, full_name, address, nic_number, email, password_hash, role) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -38,16 +38,16 @@ public class UserDAO {
             stmt.setString(4, user.getNicNumber());
             stmt.setString(5, user.getEmail());
             stmt.setString(6, user.getPassword());
-            stmt.setString(7, user.getRole()); // ✅ Store user role
+            stmt.setString(7, user.getRole()); //  Store user role
 
-            return stmt.executeUpdate() > 0; // ✅ Return true if user is inserted
+            return stmt.executeUpdate() > 0; //  Return true if user is inserted
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // ✅ GET USER BY EMAIL - Now retrieves role
+    //  GET USER BY EMAIL
     public User getUserByEmail(String email) {
         String query = "SELECT customer_registration_number, full_name, address, nic_number, email, password_hash, role FROM users WHERE email = ?";
 
@@ -62,8 +62,8 @@ public class UserDAO {
                         rs.getString("address"),
                         rs.getString("nic_number"),
                         rs.getString("email"),
-                        rs.getString("password_hash"), // ✅ Retrieve hashed password
-                        rs.getString("role") // ✅ Retrieve user role
+                        rs.getString("password_hash"), //  Retrieve hashed password
+                        rs.getString("role") //  Retrieve user role
                 );
             }
         } catch (SQLException e) {

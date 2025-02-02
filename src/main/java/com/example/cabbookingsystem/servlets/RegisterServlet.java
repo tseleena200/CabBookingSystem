@@ -28,14 +28,14 @@ public class RegisterServlet extends HttpServlet {
 
         User currentUser = (User) session.getAttribute("user");
 
-        // ✅ Ensure only the ADMIN can register employees
+        // Ensure only the ADMIN can register employees
         if (!"admin@megacitycab.com".equals(currentUser.getEmail())) {
             System.out.println("⚠️ Unauthorized Access: User is not an Admin");
             response.getWriter().write("unauthorized");
             return;
         }
 
-        // ✅ Extract Employee Registration Details
+        //  Extract Employee Registration Details
         String customerRegNum = request.getParameter("customer_registration_number");
         String fullName = request.getParameter("full_name");
         String address = request.getParameter("address");
@@ -45,10 +45,10 @@ public class RegisterServlet extends HttpServlet {
 
         System.out.println("📌 Registering Employee: " + fullName + " | Email: " + email);
 
-        // ✅ Create Employee Object
+        //  Create Employee Object
         User user = UserFactory.createUser(customerRegNum, fullName, address, nic, email, password, "employee");
 
-        // ✅ Save Employee to Database
+        //  Save Employee to Database
         if (userDAO.registerUser(user)) {
             System.out.println("✅ Employee Registered Successfully: " + email);
             response.getWriter().write("success"); // Send success response

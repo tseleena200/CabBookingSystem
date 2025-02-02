@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("✅ DOM fully loaded!");
 
-    // ✅ LOADING SCREEN HANDLING
+    //  LOADING SCREEN HANDLING
     let loadingScreen = document.getElementById("loading-screen");
 
     if (loadingScreen) {
@@ -10,15 +10,15 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 loadingScreen.style.display = "none";
             }, 500);
-        }, 2000); // ✅ Show loading screen for 2 seconds
+        }, 2000);
     }
 
-    // ✅ LOGIN FORM HANDLING
+    //  LOGIN FORM HANDLING
     let loginForm = document.getElementById("loginForm");
 
     if (loginForm) {
         loginForm.addEventListener("submit", function (event) {
-            event.preventDefault(); // ✅ Prevent default form submission
+            event.preventDefault(); // Prevent default form submission
 
             let email = document.getElementById("email").value.trim();
             let password = document.getElementById("password").value.trim();
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded"
                 },
-                credentials: "include",  // ✅ Ensure session cookies work
+                credentials: "include",  //  Ensure session cookies work
                 body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
             })
                 .then(response => response.text())
@@ -60,11 +60,11 @@ document.addEventListener("DOMContentLoaded", function () {
         console.warn("⚠️ No login form found on this page.");
     }
 
-    // ✅ LOGOUT FUNCTIONALITY
+    //  LOGOUT FUNCTIONALITY
     let logoutButton = document.getElementById("logoutBtn");
     if (logoutButton) {
         logoutButton.addEventListener("click", function () {
-            sessionStorage.removeItem("userRole"); // ✅ Remove session
+            sessionStorage.removeItem("userRole"); // Remove session
             alert("👋 Logged out successfully!");
             window.location.href = "http://localhost:8080/CabBookingSystem_war_exploded/html/login.html";
         });

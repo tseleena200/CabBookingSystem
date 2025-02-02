@@ -4,7 +4,7 @@
 <%
   User user = (User) session.getAttribute("user");
 
-  // ✅ Redirect if not logged in or not an admin
+  //  Redirect if not logged in or not an admin
   if (user == null || !"admin".equals(user.getRole())) {
     response.sendRedirect("../html/login.html?error=unauthorized");
     return;
@@ -21,23 +21,23 @@
 </head>
 <body>
 
-<!-- ✅ Navbar -->
+<!--  Navbar -->
 <div class="navbar">
   <h2>Admin Panel - CityCab</h2>
   <a href="http://localhost:8080/CabBookingSystem_war_exploded/html/login.html" class="logout-btn">Logout</a>
 </div>
 
-<!-- ✅ Admin Dashboard -->
+<!--  Admin Dashboard -->
 <div class="container">
   <h2>Welcome, <%= user.getFullName() %> (Admin)</h2>
 
-  <!-- ✅ Admin Actions -->
+  <!-- Admin Actions -->
   <div class="admin-actions">
     <h3>Admin Actions</h3>
     <a href="register.html" class="btn">Register Employee</a>
   </div>
 
-  <!-- ✅ Success/Error Message Handling -->
+  <!--  Success/Error Message Handling -->
   <% String success = request.getParameter("success"); %>
   <% if ("employee_created".equals(success)) { %>
   <p class="success-msg">✅ Employee registered successfully!</p>
