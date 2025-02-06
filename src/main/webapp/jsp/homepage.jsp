@@ -6,16 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage | Mega CityCab</title>
 
-    <!-- ✅ External Styles -->
+    <!--  External Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="../css/homepage.css">
 
-    <!-- ✅ Swiper.js for Carousel -->
+    <!-- Swiper.js for Carousel -->
     <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 </head>
 <body>
 
-<!-- ✅ Navigation Bar -->
+<!--  Navigation Bar -->
 <nav class="navbar">
     <div class="logo-container">
         <img src="../images/taxilogo.png" alt="Mega CityCab Logo" class="logo-img">
@@ -32,7 +32,7 @@
     </ul>
 </nav>
 
-<!-- ✅ Hero Section - Swiper Carousel -->
+<!--  Hero Section - Swiper Carousel -->
 <section class="hero">
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
@@ -95,7 +95,7 @@
 </section>
 
 
-<!-- ✅ JavaScript for Swiper -->
+<!--  JavaScript for Swiper -->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var swiper = new Swiper(".mySwiper", {

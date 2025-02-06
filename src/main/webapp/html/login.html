@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | Mega CityCab</title>
     <link rel="stylesheet" href="../css/login_register.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../js/script.js"></script>
 </head>
 <body>
 
@@ -31,48 +34,6 @@
     <div class="login-bg"></div>
 </div>
 
-<script>
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
-        event.preventDefault(); //  Prevent default form submission
-
-        let email = document.getElementById("email").value.trim();
-        let password = document.getElementById("password").value.trim();
-
-        console.log(" Attempting login for:", email);
-
-        fetch("http://localhost:8080/CabBookingSystem_war_exploded/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-        })
-            .then(response => response.text())
-            .then(data => {
-                console.log(" Server Response:", `"${data.trim()}"`);
-
-                if (data.trim() === "admin") {
-                    alert("✅ Welcome, Admin!");
-                    sessionStorage.setItem("userLoggedIn", "admin");
-                    window.location.href = "../admin/admin_panel.jsp"; //  Redirect Admins
-
-                } else if (data.trim() === "employee") {
-                    alert("✅ Login successful!");
-                    sessionStorage.setItem("userLoggedIn", "employee");
-                    window.location.href = "../jsp/homepage.jsp"; //  Redirect Employees
-
-                } else {
-                    document.getElementById("errorMessage").textContent = "❌ Invalid email or password!";
-                    document.getElementById("errorMessage").style.display = "block";
-                }
-            })
-            .catch(error => {
-                console.error("🚨 Login request failed:", error);
-                document.getElementById("errorMessage").textContent = "⚠️ Server error. Please try again.";
-                document.getElementById("errorMessage").style.display = "block";
-            });
-    });
-</script>
 
 </body>
 </html>

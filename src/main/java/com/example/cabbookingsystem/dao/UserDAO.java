@@ -38,9 +38,9 @@ public class UserDAO {
             stmt.setString(4, user.getNicNumber());
             stmt.setString(5, user.getEmail());
             stmt.setString(6, user.getPassword());
-            stmt.setString(7, user.getRole()); //  Store user role
+            stmt.setString(7, user.getRole());
 
-            return stmt.executeUpdate() > 0; //  Return true if user is inserted
+            return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -70,5 +70,43 @@ public class UserDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    // Check if an email already exists
+    public boolean isDuplicateEmail(String email) {
+        String sql = "SELECT COUNT(*) FROM users WHERE email = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    //  Check if NIC number already exists
+    public boolean isDuplicateNIC(String nic) {
+        String sql = "SELECT COUNT(*) FROM users WHERE nic_number = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nic);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    //  Check if customer registration number already exists
+    public boolean isDuplicateCustomerRegNum(String customerRegNum) {
+        String sql = "SELECT COUNT(*) FROM users WHERE customer_registration_number = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, customerRegNum);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

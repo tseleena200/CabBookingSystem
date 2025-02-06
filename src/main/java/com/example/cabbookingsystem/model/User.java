@@ -18,10 +18,10 @@ public class User {
         this.nicNumber = nicNumber;
         this.email = email;
         this.password = password;
-        this.role = "employee"; //  Default role set to "employee"
+        this.role = "employee";
     }
 
-    //  Constructor for Admins & Employees (explicit role)
+    //  Constructor for Admins & Employees
     public User(String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String password, String role) {
         this.customerRegistrationNumber = customerRegistrationNumber;
         this.fullName = fullName;
@@ -29,7 +29,7 @@ public class User {
         this.nicNumber = nicNumber;
         this.email = email;
         this.password = password;
-        this.role = role; //  Allows specifying "admin" or "employee"
+        this.role = role;
     }
 
     //  Getters and Setters
@@ -54,10 +54,10 @@ public class User {
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
 
-    public String getRole() { return role; }  //  Getter for role
-    public void setRole(String role) { this.role = role; } //  Setter for role
+    public String getRole() { return role; }
+    public void setRole(String role) { this.role = role; }
 
-    //  Override toString for debugging
+
     @Override
     public String toString() {
         return "User{" +

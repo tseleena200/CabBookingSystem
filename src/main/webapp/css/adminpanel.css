@@ -1,0 +1,193 @@
+/* ===== Admin Panel Styling ===== */
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+    color: gold;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.admin-actions button {
+    background-color: gold;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 200px;
+    text-align: center;
+}
+
+.admin-actions button:hover {
+    background-color: white;
+    color: black;
+}
+
+
+.logout-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.logout-btn:hover {
+    background-color: darkred;
+}
+
+
+/* ✅ Split-Screen Form Layout */
+.container {
+    display: flex;
+    width: 80%;
+    max-width: 900px;
+    margin: 50px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Left Section (Intro) */
+.left-panel {
+    width: 40%;
+    background: #ffcc00; /* Gold Theme */
+    color: #121212;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.left-panel h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.left-panel p {
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* ✅ Right Section (Form) */
+.right-panel {
+    width: 60%;
+    background: #ffffff;
+    padding: 40px;
+    text-align: left;
+}
+
+.right-panel h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ✅ Input Fields */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+/* ✅ Input Focus */
+.form-group input:focus, .form-group select:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+/* ✅ Buttons */
+button {
+    background: #2ecc71; /* Green */
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #27ae60;
+}
+
+/* ✅ Cancel Button */
+.cancel-btn {
+    background: #ddd;
+    color: #333;
+    margin-left: 10px;
+}
+
+.cancel-btn:hover {
+    background: #bbb;
+}
+
+/* ✅ Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+    .left-panel, .right-panel {
+        width: 100%;
+        text-align: center;
+    }
+}

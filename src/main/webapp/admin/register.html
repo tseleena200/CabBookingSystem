@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Employee | Mega CityCab</title>
   <link rel="stylesheet" href="../css/login_register.css">
+
 </head>
 <body>
 
@@ -12,8 +13,8 @@
   <div class="register-box">
     <h2>Register Employee <span class="highlight">-</span></h2>
 
-    <!-- Form with Validation -->
-    <form id="registerForm" action="http://localhost:8080/CabBookingSystem_war_exploded/register" method="POST">
+
+    <form id="registerForm" action="../register" method="POST">
 
       <div class="input-group">
         <input type="text" id="regNumber" name="customer_registration_number" placeholder="Customer Registration Number" required pattern="[A-Za-z0-9]+" title="Only letters and numbers allowed.">
@@ -45,7 +46,7 @@
         <span class="icon">🔒</span>
       </div>
 
-      <!--  Admin can only register employees  -->
+
       <input type="hidden" name="role" value="employee">
 
       <button type="submit" class="btn">Register Employee</button>
@@ -53,30 +54,10 @@
   </div>
 </div>
 
-<script>
-  document.getElementById("registerForm").addEventListener("submit", function (event) {
-    event.preventDefault(); // Prevent default form submission
-
-    const formData = new FormData(this);
-    fetch(this.action, {
-      method: "POST",
-      body: new URLSearchParams(formData),
-    })
-            .then(response => response.text())
-            .then(data => {
-              if (data.trim() === "success") {
-                alert("✅ Employee registered successfully!");
-                window.location.href = "admin_panel.jsp"; //Redirect to Admin Panel
-              } else {
-                alert("❌ Registration failed! Please try again.");
-              }
-            })
-            .catch(error => {
-              alert("⚠️ Server error. Please try again later.");
-              console.error(error);
-            });
-  });
-</script>
+<!--JavaScript file  -->
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="../js/script.js"></script>
 
 </body>
 </html>
