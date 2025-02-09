@@ -15,10 +15,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Panel</title>
+  <title>Admin Panel | Mega CityCab</title>
   <link rel="stylesheet" href="../css/adminpanel.css">
   <script>
-    // ✅ Panel Fade-in Animation
+
     document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("panel").style.opacity = "1";
       document.getElementById("panel").style.transform = "translateY(0)";
@@ -31,15 +31,15 @@
   <h1>Admin Panel - CityCab</h1>
   <h2>Welcome, <%= user.getFullName() %> (Admin)</h2>
 
-  <!-- ✅ Admin Actions -->
+
   <div class="admin-actions">
     <h3>Admin Actions</h3>
     <button onclick="location.href='register.html'"> Register Employee</button>
-    <button onclick="location.href='add_driver.jsp'"> Add Driver</button>
-    <button onclick="location.href='add_car.jsp'"> Add Car</button>
+    <button onclick="location.href='../admin/manage_drivers_admin.jsp'">Manage Drivers</button> <!-- ✅ Fixed -->
+    <button onclick="location.href='../admin/manage_cars_admin.jsp'"> Manage Cars</button> <!-- ✅ Fixed -->
   </div>
 
-  <!-- ✅ Show Success Messages Only -->
+
   <% if (success != null) { %>
   <p class="success-msg">
     ✅

@@ -6,8 +6,9 @@ public class Car {
     private String licensePlate;
     private int capacity;
     private Integer driverId; // Can be NULL
+    private String driverName; // ✅ Added driverName field
 
-    // Constructor for adding a new car
+    // ✅ Constructor for adding a new car
     public Car(String model, String licensePlate, int capacity, Integer driverId) {
         this.model = model;
         this.licensePlate = licensePlate;
@@ -15,7 +16,9 @@ public class Car {
         this.driverId = driverId;
     }
 
-    // Getters and Setters
+    public Car() {} // ✅ Default constructor required for DAO methods
+
+    // ✅ Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -30,4 +33,7 @@ public class Car {
 
     public Integer getDriverId() { return driverId; }
     public void setDriverId(Integer driverId) { this.driverId = driverId; }
+
+    public String getDriverName() { return driverName; } // ✅ Getter for driver name
+    public void setDriverName(String driverName) { this.driverName = driverName; } // ✅ Setter for driver name
 }

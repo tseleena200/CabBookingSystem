@@ -190,7 +190,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    //  ADD CAR FORM HANDLING
     let addCarForm = document.getElementById("addCarForm");
     if (addCarForm) {
         addCarForm.addEventListener("submit", function (event) {
@@ -204,6 +203,8 @@ document.addEventListener("DOMContentLoaded", function () {
             })
                 .then(response => response.text())
                 .then(data => {
+                    console.log("🔍 Server Response:", data.trim());
+
                     if (data.trim() === "success") {
                         Swal.fire({
                             icon: "success",
@@ -212,6 +213,38 @@ document.addEventListener("DOMContentLoaded", function () {
                             showConfirmButton: false
                         }).then(() => {
                             window.location.reload();
+                        });
+
+                    } else if (data.trim() === "duplicate_license") {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Duplicate License Plate!",
+                            text: "This license plate is already registered.",
+                            confirmButtonColor: "#f39c12"
+                        });
+
+                    } else if (data.trim() === "driver_already_assigned") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Driver Already Assigned!",
+                            text: "This driver is already assigned to another car.",
+                            confirmButtonColor: "#d33"
+                        });
+
+                    } else if (data.trim() === "missing_fields") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Missing Fields",
+                            text: "Please fill in all required fields!",
+                            confirmButtonColor: "#d33"
+                        });
+
+                    } else if (data.trim() === "invalid_capacity") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Invalid Capacity",
+                            text: "Please enter a valid capacity (numbers only).",
+                            confirmButtonColor: "#d33"
                         });
 
                     } else {

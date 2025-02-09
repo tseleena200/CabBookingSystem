@@ -3,14 +3,84 @@
 <html>
 <head>
     <title>View Bookings | Mega CityCab</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/homepage.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #000;
+            color: white;
+            padding-top: 80px; /* Push content below navbar */
+        }
+        h2 {
+            margin-top: 20px;
+            font-size: 26px;
+            font-weight: bold;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: black;
+            border: 2px solid #ffffff;
+            overflow-x: auto;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ffffff;
+            text-align: center;
+        }
+        th {
+            background-color: #ffffff;
+            color: black;
+            font-weight: bold;
+        }
+        .manage-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .confirm-btn {
+            background-color: #FFD700;
+        }
+        .confirm-btn:hover {
+            background-color: #FFC107;
+        }
+        .status-confirmed {
+            color: green;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="logo-container">
+        <img src="../images/taxilogo.png" alt="Mega CityCab Logo" class="logo-img">
+        <span class="logo-text">MEGA CITYCAB</span>
+    </div>
+    <ul class="nav-links">
+        <li><a href="homepage.jsp">Home</a></li>
+        <li><a href="add_booking.jsp">Add Booking</a></li>
+        <li><a href="view_bookings.jsp">View Bookings</a></li>
+        <li><a href="manage.jsp">Manage</a></li>
+        <li><a href="calculate_bill.jsp">Calculate Bill</a></li>
+        <li><a href="help.jsp">Help</a></li>
+        <li><a href="logout.jsp" class="logout-btn">Logout</a></li>
+    </ul>
+</nav>
+
 <h2>Booking Management</h2>
 
-<table border="1">
+<!-- Bookings Table -->
+<table>
     <thead>
     <tr>
         <th>Order Number</th>
@@ -42,14 +112,23 @@
         <td><%= booking.getCarId() %></td>
         <td><%= booking.getDriverId() %></td>
         <td>$<%= booking.getTotalAmount() %></td>
-        <td><%= (booking.getConfirmedByEmployee() != null && !booking.getConfirmedByEmployee().isEmpty())
-                ? booking.getConfirmedByEmployee()
-                : "Not Confirmed" %></td>
-
-        <% if ("Pending".equals(booking.getStatus())) { %>
-            <button class="confirm-booking-btn" data-booking-id="<%= booking.getBookingId() %>">Confirm</button>
+        <td id="status_<%= booking.getBookingId() %>">
+            <% if ("Confirmed".equals(booking.getStatus())) { %>
+            <span class="status-confirmed">Confirmed</span>
             <% } else { %>
-            <span style="color: green; font-weight: bold;">Confirmed</span>
+            <%= booking.getStatus() %>
+            <% } %>
+        </td>
+        <td>
+            <%= (booking.getConfirmedByEmployee() != null && !booking.getConfirmedByEmployee().isEmpty())
+                    ? booking.getConfirmedByEmployee()
+                    : "Not Confirmed" %>
+        </td>
+        <td>
+            <% if ("Pending".equals(booking.getStatus())) { %>
+            <button class="manage-btn confirm-btn confirm-booking-btn" data-booking-id="<%= booking.getBookingId() %>">Confirm</button>
+            <% } else { %>
+            <span class="status-confirmed">Confirmed</span>
             <% } %>
         </td>
     </tr>
@@ -84,17 +163,17 @@
                         })
                             .then(response => response.text())
                             .then(data => {
-                                console.log(" Server Response:", data);
+                                console.log("📌 Server Response:", data);
                                 if (data.trim() === "success") {
                                     Swal.fire("Confirmed!", "The booking has been confirmed.", "success");
-                                    document.getElementById(`status_${bookingId}`).innerText = "Confirmed";
+                                    document.getElementById(`status_${bookingId}`).innerHTML = "<span class='status-confirmed'>Confirmed</span>";
                                     document.querySelector(`button[data-booking-id="${bookingId}"]`).remove();
                                 } else {
                                     Swal.fire("Error!", "Failed to confirm booking.", "error");
                                 }
                             })
                             .catch(error => {
-                                console.error(" Booking Confirmation Failed:", error);
+                                console.error("🚨 Booking Confirmation Failed:", error);
                                 Swal.fire("Server Error!", "Please try again later.", "error");
                             });
                     }

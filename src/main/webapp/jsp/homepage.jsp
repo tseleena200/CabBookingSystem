@@ -25,7 +25,7 @@
         <li><a href="homepage.jsp">Home</a></li>
         <li><a href="add_booking.jsp">Add Booking</a></li>
         <li><a href="view_bookings.jsp">View Bookings</a></li>
-        <li><a href="manage_cars.jsp">Manage Cars</a></li>
+        <li><a href="manage.jsp">Manage</a></li>
         <li><a href="calculate_bill.jsp">Calculate Bill</a></li>
         <li><a href="help.jsp">Help</a></li>
         <li><a href="logout.jsp" class="logout-btn">Logout</a></li>

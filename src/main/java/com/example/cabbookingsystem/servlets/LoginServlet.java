@@ -41,9 +41,13 @@ public class LoginServlet extends HttpServlet {
             // Start user session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("user_role", user.getRole()); // ✅ Store role in session
 
-            // Redirect Admin to Admin Panel, Employees to Employee Page
-            if ("admin@megacitycab.com".equals(email)) {
+            // ✅ Debugging Role
+            System.out.println("[LoginServlet] Assigned user role: " + user.getRole());
+
+            // Redirect based on user role
+            if ("admin".equals(user.getRole())) {  // ✅ FIXED ROLE CHECK
                 response.getWriter().write("admin");
             } else {
                 response.getWriter().write("employee");
