@@ -26,7 +26,7 @@ public class DriverDAO {
         return instance;
     }
 
-    // ✅ Check if the license number already exists
+    //  Check if the license number already exists
     public boolean isDuplicateLicense(String licenseNumber) {
         String sql = "SELECT COUNT(*) FROM drivers WHERE license_number = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -34,13 +34,13 @@ public class DriverDAO {
             ResultSet rs = stmt.executeQuery();
             return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to check duplicate license: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to check duplicate license: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
 
-    // ✅ Add a new driver
+    //  Add a new driver
     public boolean addDriver(Driver driver) {
         if (isDuplicateLicense(driver.getLicenseNumber())) {
             System.err.println("🚨 [ERROR] Duplicate license detected: " + driver.getLicenseNumber());
@@ -62,13 +62,13 @@ public class DriverDAO {
                 return true;
             }
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to add driver: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to add driver: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
 
-    // ✅ Fetch all drivers
+    //  Fetch all drivers
     public List<Driver> getAllDrivers() {
         List<Driver> drivers = new ArrayList<>();
         String query = "SELECT id, full_name, license_number, contact_number FROM drivers";
@@ -86,13 +86,13 @@ public class DriverDAO {
             }
 
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to fetch drivers: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to fetch drivers: " + e.getMessage());
             e.printStackTrace();
         }
         return drivers;
     }
 
-    // ✅ Fetch a specific driver by ID
+    //  Fetch a specific driver by ID
     public Driver getDriverById(int driverId) {
         String query = "SELECT id, full_name, license_number, contact_number FROM drivers WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -108,13 +108,13 @@ public class DriverDAO {
                 return driver;
             }
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to fetch driver: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to fetch driver: " + e.getMessage());
             e.printStackTrace();
         }
         return null;
     }
 
-    // ✅ Update driver details
+    //  Update driver details
     public boolean updateDriver(Driver driver) {
         String query = "UPDATE drivers SET full_name = ?, license_number = ?, contact_number = ? WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -125,20 +125,20 @@ public class DriverDAO {
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to update driver: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to update driver: " + e.getMessage());
             e.printStackTrace();
         }
         return false;
     }
 
-    // ✅ Delete a driver by ID
+    //  Delete a driver by ID
     public boolean deleteDriver(int driverId) {
         String query = "DELETE FROM drivers WHERE id = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, driverId);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.err.println("🚨 [ERROR] Failed to delete driver: " + e.getMessage());
+            System.err.println(" [ERROR] Failed to delete driver: " + e.getMessage());
             e.printStackTrace();
         }
         return false;

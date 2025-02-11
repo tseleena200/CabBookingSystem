@@ -41,13 +41,13 @@ public class LoginServlet extends HttpServlet {
             // Start user session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            session.setAttribute("user_role", user.getRole()); // ✅ Store role in session
+            session.setAttribute("user_role", user.getRole());
 
-            // ✅ Debugging Role
+
             System.out.println("[LoginServlet] Assigned user role: " + user.getRole());
 
             // Redirect based on user role
-            if ("admin".equals(user.getRole())) {  // ✅ FIXED ROLE CHECK
+            if ("admin".equals(user.getRole())) {
                 response.getWriter().write("admin");
             } else {
                 response.getWriter().write("employee");

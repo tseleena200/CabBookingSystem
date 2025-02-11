@@ -3,15 +3,18 @@
 <html>
 <head>
     <title>View Bookings | Mega CityCab</title>
-    <link rel="stylesheet" href="../css/homepage.css">
+    <link rel="stylesheet" href="<%= request.getContextPath() %>/css/homepage.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!--  Link JavaScript  -->
+    <script src="../js/script.js" defer></script>
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             background-color: #000;
             color: white;
-            padding-top: 80px; /* Push content below navbar */
+            padding-top: 80px;
         }
         h2 {
             margin-top: 20px;
@@ -63,7 +66,7 @@
 <!-- Navigation Bar -->
 <nav class="navbar">
     <div class="logo-container">
-        <img src="../images/taxilogo.png" alt="Mega CityCab Logo" class="logo-img">
+        <img src="<%= request.getContextPath() %>/images/taxilogo.png" alt="Mega CityCab Logo" class="logo-img">
         <span class="logo-text">MEGA CITYCAB</span>
     </div>
     <ul class="nav-links">
@@ -107,81 +110,23 @@
         <td><%= booking.getOrderNumber() %></td>
         <td><%= booking.getCustomerName() %></td>
         <td><%= booking.getDestination() %></td>
-        <td><%= booking.getScheduledDate().toString() %></td>
+        <td><%= booking.getScheduledDate() %></td>
         <td><%= booking.getScheduledTime() %></td>
         <td><%= booking.getCarId() %></td>
         <td><%= booking.getDriverId() %></td>
-        <td>$<%= booking.getTotalAmount() %></td>
-        <td id="status_<%= booking.getBookingId() %>">
-            <% if ("Confirmed".equals(booking.getStatus())) { %>
-            <span class="status-confirmed">Confirmed</span>
-            <% } else { %>
-            <%= booking.getStatus() %>
-            <% } %>
-        </td>
+        <td><%= booking.getTotalAmount() %></td>
+        <td id="status_<%= booking.getOrderNumber() %>"><%= booking.getStatus() %></td>
         <td>
-            <%= (booking.getConfirmedByEmployee() != null && !booking.getConfirmedByEmployee().isEmpty())
-                    ? booking.getConfirmedByEmployee()
-                    : "Not Confirmed" %>
-        </td>
-        <td>
-            <% if ("Pending".equals(booking.getStatus())) { %>
-            <button class="manage-btn confirm-btn confirm-booking-btn" data-booking-id="<%= booking.getBookingId() %>">Confirm</button>
-            <% } else { %>
-            <span class="status-confirmed">Confirmed</span>
+            <% if (!"Confirmed".equals(booking.getStatus())) { %>
+            <button class="confirm-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">
+                Confirm
+            </button>
             <% } %>
         </td>
     </tr>
-    <%
-        }
-    %>
+    <% } %>
     </tbody>
 </table>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        let confirmBookingButtons = document.querySelectorAll(".confirm-booking-btn");
-
-        confirmBookingButtons.forEach(button => {
-            button.addEventListener("click", function () {
-                let bookingId = this.dataset.bookingId;
-
-                Swal.fire({
-                    title: "Confirm Booking?",
-                    text: "Are you sure you want to confirm this booking?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonText: "Yes, Confirm!",
-                    cancelButtonText: "Cancel",
-                    confirmButtonColor: "#28a745"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        fetch("../bookingConfirmation", {
-                            method: "POST",
-                            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                            body: "booking_id=" + encodeURIComponent(bookingId)
-                        })
-                            .then(response => response.text())
-                            .then(data => {
-                                console.log("📌 Server Response:", data);
-                                if (data.trim() === "success") {
-                                    Swal.fire("Confirmed!", "The booking has been confirmed.", "success");
-                                    document.getElementById(`status_${bookingId}`).innerHTML = "<span class='status-confirmed'>Confirmed</span>";
-                                    document.querySelector(`button[data-booking-id="${bookingId}"]`).remove();
-                                } else {
-                                    Swal.fire("Error!", "Failed to confirm booking.", "error");
-                                }
-                            })
-                            .catch(error => {
-                                console.error("🚨 Booking Confirmation Failed:", error);
-                                Swal.fire("Server Error!", "Please try again later.", "error");
-                            });
-                    }
-                });
-            });
-        });
-    });
-</script>
 
 </body>
 </html>

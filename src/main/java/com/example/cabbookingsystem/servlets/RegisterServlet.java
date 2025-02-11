@@ -21,7 +21,7 @@ public class RegisterServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         if (session == null || session.getAttribute("user") == null) {
-            System.out.println("⚠️ Unauthorized Access: No Admin Session Found");
+            System.out.println(" Unauthorized Access: No Admin Session Found");
             response.getWriter().write("unauthorized");
             return;
         }
@@ -29,7 +29,7 @@ public class RegisterServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
 
         if (!"admin@megacitycab.com".equals(currentUser.getEmail())) {
-            System.out.println("⚠️ Unauthorized Access: User is not an Admin");
+            System.out.println(" Unauthorized Access: User is not an Admin");
             response.getWriter().write("unauthorized");
             return;
         }

@@ -14,8 +14,8 @@ body {
 /* Register Container */
 .register-container {
     display: flex;
-    flex-direction: row; /* Ensures form & background are side-by-side */
-    align-items: stretch; /* Makes both sections equal height */
+    flex-direction: row;
+    align-items: stretch;
     width: 900px;
     height: 650px;
     background: white;

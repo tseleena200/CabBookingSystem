@@ -62,8 +62,8 @@ public class UserDAO {
                         rs.getString("address"),
                         rs.getString("nic_number"),
                         rs.getString("email"),
-                        rs.getString("password_hash"), //  Retrieve hashed password
-                        rs.getString("role") //  Retrieve user role
+                        rs.getString("password_hash"),
+                        rs.getString("role")
                 );
             }
         } catch (SQLException e) {

@@ -1,13 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List, com.example.cabbookingsystem.dao.CarDAO, com.example.cabbookingsystem.model.Car" %>
 <%
-  // ✅ Admin session check
+  // Admin session check
   if (session.getAttribute("user_role") == null || !session.getAttribute("user_role").equals("admin")) {
     response.sendRedirect("../html/login.html?error=unauthorized");
     return;
   }
 
-  // ✅ Check for success or error messages
+  //  Check for success or error messages
   String successMessage = request.getParameter("success");
   String errorMessage = request.getParameter("error");
 %>
@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!-- Back Arrow Button -->
+
   <a href="admin_panel.jsp" class="back-arrow">←</a>
   <title>Manage Cars | Mega CityCab</title>
   <link rel="stylesheet" href="../css/homepage.css">

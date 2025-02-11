@@ -111,7 +111,7 @@
 </div>
 
 <script>
-    // ✅ Show SweetAlert if driver is updated
+    //  Show SweetAlert if driver is updated
     const urlParams = new URLSearchParams(window.location.search);
     if (urlParams.has('success')) {
         Swal.fire({

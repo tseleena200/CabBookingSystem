@@ -1,0 +1,285 @@
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #000;
+    color: white;
+}
+
+/*  Navbar */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+}
+
+/*  Fix for logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    width: 50px;
+    height: auto;
+}
+
+.logo-text {
+    font-size: 25px;
+    font-weight: bold;
+    color: #FFCC00;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/*  Navigation Links */
+.nav-links {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin: 0 auto;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links a:hover {
+    color: #FFCC00;
+}
+
+.logout-btn {
+    background: #FFCC00;
+    color: black;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease-in-out;
+    margin-right: 30px;
+}
+
+.logout-btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+/*  Booking Form Styling */
+.container {
+    max-width: 480px;
+    margin: 150px auto 50px auto; /* Moves form below navbar */
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.15);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+/*  Form Title */
+.container h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #FFCC00;
+}
+
+/*  Form Labels */
+label {
+    font-weight: bold;
+    margin-top: 12px;
+    font-size: 16px;
+    display: block;
+    color: white;
+    text-align: left;
+}
+
+/*  Input Fields & Dropdown */
+input, select {
+    width: 95%; /* Keeps form fields contained */
+    padding: 12px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+/*  Input Placeholder Styling */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+select {
+    color: black;  /* This fixes the white text issue */
+    background-color: white;
+}
+input:focus, select:focus {
+    border: 1px solid #FFCC00;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/*  Fix for Button */
+.btn {
+    margin-top: 20px;
+    padding: 14px;
+    background: #FFCC00;
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+/*  Bill Page Styling */
+.bill-container {
+    max-width: 480px;
+    margin: 150px auto 50px auto; /* Moves form below navbar */
+    background: rgba(255, 255, 255, 0.08);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.15);
+    text-align: center;
+    backdrop-filter: blur(10px);
+}
+
+/*  Bill Form Title */
+.bill-container h1 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #FFCC00;
+}
+
+/*  Input Field Styling */
+.bill-container input {
+    width: 95%;
+    padding: 12px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+/*  Placeholder Fix */
+.bill-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/*  Highlight Inputs on Focus */
+.bill-container input:focus {
+    border: 1px solid #FFCC00;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/*  Bill Submit Button */
+.bill-btn {
+    margin-top: 20px;
+    padding: 14px;
+    background: #FFCC00;
+    color: black;
+    font-size: 17px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    width: 100%;
+}
+
+.bill-btn:hover {
+    background: white;
+    color: black;
+    transform: scale(1.05);
+}
+
+/*  Bill Summary Box */
+.bill-summary {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+    text-align: left;
+    font-size: 18px;
+}
+
+/* Summary Title */
+.bill-summary h2 {
+    color: #FFCC00;
+    text-align: center;
+    font-size: 20px;
+}
+
+/* Summary Text */
+.bill-summary p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+/*  Total Amount Styling */
+.total-amount {
+    font-weight: bold;
+    font-size: 22px;
+    color: #e74c3c;
+    text-align: center;
+}
+
+/* Responsive Fix */
+@media (max-width: 600px) {
+    .bill-container {
+        max-width: 90%;
+    }
+}
+
+/* ✅ Responsive Fix */
+@media (max-width: 600px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .navbar {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-links li {
+        margin: 10px 0;
+    }
+}

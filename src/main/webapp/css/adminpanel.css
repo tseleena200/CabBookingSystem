@@ -74,7 +74,7 @@ h2 {
 }
 
 
-/* ✅ Split-Screen Form Layout */
+/*  Split-Screen Form Layout */
 .container {
     display: flex;
     width: 80%;
@@ -85,7 +85,7 @@ h2 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ Left Section (Intro) */
+/* Left Section  */
 .left-panel {
     width: 40%;
     background: #ffcc00; /* Gold Theme */
@@ -108,7 +108,7 @@ h2 {
     text-align: center;
 }
 
-/* ✅ Right Section (Form) */
+/*  Right Section (Form) */
 .right-panel {
     width: 60%;
     background: #ffffff;
@@ -123,7 +123,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* ✅ Input Fields */
+/*  Input Fields */
 .form-group {
     margin-bottom: 15px;
 }
@@ -145,15 +145,15 @@ h2 {
     transition: 0.3s;
 }
 
-/* ✅ Input Focus */
+/*  Input Focus */
 .form-group input:focus, .form-group select:focus {
     border-color: #ffcc00;
     box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
 }
 
-/* ✅ Buttons */
+/*  Buttons */
 button {
-    background: #2ecc71; /* Green */
+    background: #2ecc71;
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -169,7 +169,7 @@ button:hover {
     background: #27ae60;
 }
 
-/* ✅ Cancel Button */
+/*  Cancel Button */
 .cancel-btn {
     background: #ddd;
     color: #333;
@@ -180,7 +180,7 @@ button:hover {
     background: #bbb;
 }
 
-/* ✅ Responsive Design */
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

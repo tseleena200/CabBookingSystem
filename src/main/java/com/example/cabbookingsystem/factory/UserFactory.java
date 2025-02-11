@@ -11,11 +11,11 @@ public class UserFactory {
 
 
         if (!role.equals("employee") && !role.equals("admin")) {
-            System.out.println("⚠️ [UserFactory] Invalid role assigned! Defaulting to employee.");
+            System.out.println("⚠[UserFactory] Invalid role assigned! Defaulting to employee.");
             role = "employee";
         }
 
-        System.out.println("✅ [UserFactory] Creating User: " + fullName + " | Role: " + role);
+        System.out.println(" [UserFactory] Creating User: " + fullName + " | Role: " + role);
         return new User(customerRegNum, fullName, address, nic, email, hashedPassword, role);
     }
 }
