@@ -4,7 +4,7 @@
 <%@ page import="java.util.List" %>
 
 <%
-    // ✅ Fetch all drivers for the dropdown safely
+    // Fetch all drivers for the dropdown safely
     DriverDAO driverDAO = DriverDAO.getInstance();
     List<Driver> drivers = driverDAO.getAllDrivers();
 %>
@@ -19,13 +19,12 @@
 <body>
 
 <div class="container">
-    <!-- ✅ Left Panel (Intro) -->
+
     <div class="left-panel">
         <h2>Manage Your Fleet</h2>
         <p>Add a new car and assign a driver.</p>
     </div>
 
-    <!-- ✅ Right Panel (Form) -->
     <div class="right-panel">
         <h1>Add New Car</h1>
         <form id="addCarForm" action="../addCar" method="POST">

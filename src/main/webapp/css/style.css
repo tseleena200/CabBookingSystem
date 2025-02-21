@@ -4,10 +4,9 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Poppins', sans-serif;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
-/* LOADING SCREEN */
 #loading-screen {
     position: fixed;
     width: 100%;
@@ -24,7 +23,7 @@ html, body {
     z-index: 9999;
 }
 
-/* Letter Animation */
+
 .letter {
     font-size: 90px;
     font-weight: bold;
@@ -47,7 +46,7 @@ html, body {
     100% { opacity: 1; color: #FFCC00; }
 }
 
-/* Fade out animation for loading screen */
+
 .fade-out {
     animation: fadeOut 1s forwards;
 }
@@ -61,7 +60,7 @@ html, body {
 
 /* AUTH PAGE */
 .auth-page {
-    height: 100vh;  /* Full screen */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -3,6 +3,7 @@ package com.example.cabbookingsystem.servlets;
 import com.example.cabbookingsystem.dao.DriverDAO;
 import com.example.cabbookingsystem.model.Driver;
 
+import com.example.cabbookingsystem.service.DriverService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,19 +18,17 @@ public class AddDriverServlet extends HttpServlet {
         String licenseNumber = request.getParameter("license_number");
         String contactNumber = request.getParameter("contact_number");
 
-        //  Check if the license number already exists
-        if (DriverDAO.getInstance().isDuplicateLicense(licenseNumber)) {
-            response.getWriter().write("duplicate_license");
+        //  Validate input
+        if (fullName == null || licenseNumber == null || contactNumber == null || fullName.isEmpty() || licenseNumber.isEmpty() || contactNumber.isEmpty()) {
+            response.getWriter().write("missing_fields");
             return;
         }
 
-        Driver newDriver = new Driver(fullName, licenseNumber, contactNumber);
-        boolean success = DriverDAO.getInstance().addDriver(newDriver);
+        //  Use service layer to handle the addition
+        DriverService driverService = new DriverService();
+        String result = driverService.addDriver(fullName, licenseNumber, contactNumber);
 
-        if (success) {
-            response.getWriter().write("success");
-        } else {
-            response.getWriter().write("db_insert_fail");
-        }
+        response.getWriter().write(result);
     }
 }
+

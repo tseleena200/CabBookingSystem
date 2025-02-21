@@ -1,6 +1,6 @@
 /* ===== Admin Panel Styling ===== */
 body {
-    background-color: black;
+    background-color: #1a1a1a; /* Darker background */
     color: white;
     font-family: 'Arial', sans-serif;
     margin: 0;
@@ -16,7 +16,7 @@ body {
 h1 {
     text-align: center;
     font-size: 2em;
-    color: gold;
+    color: #b58a3e; /* Darker Gold */
     margin-bottom: 20px;
 }
 
@@ -36,7 +36,7 @@ h2 {
 }
 
 .admin-actions button {
-    background-color: gold;
+    background-color: #b58a3e; /* Darker Gold */
     color: black;
     border: none;
     padding: 12px 20px;
@@ -49,13 +49,12 @@ h2 {
 }
 
 .admin-actions button:hover {
-    background-color: white;
+    background-color: #c7a35b; /* Slightly lighter gold */
     color: black;
 }
 
-
 .logout-btn {
-    background-color: red;
+    background-color: #a40000; /* Darker red */
     color: white;
     border: none;
     padding: 12px 20px;
@@ -70,11 +69,120 @@ h2 {
 }
 
 .logout-btn:hover {
-    background-color: darkred;
+    background-color: #8b0000; /* Dark red on hover */
 }
 
+/* ===== Manage Bookings Styling ===== */
+#panel {
+    width: 90%;
+    max-width: 1200px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    margin-top: 30px;
+    text-align: center;
+}
 
-/* ✅ Split-Screen Form Layout */
+/* Search & Filter Styling */
+#searchBooking, #filterStatus {
+    width: 40%;
+    max-width: 300px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #b58a3e; /* Darker Gold */
+    background-color: #1a1a1a; /* Dark Background */
+    color: white;
+    font-size: 16px;
+    text-align: center;
+}
+
+#searchBooking::placeholder, #filterStatus {
+    color: #c7a35b; /* Lighter Gold */
+}
+
+#filterStatus {
+    cursor: pointer;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: #1a1a1a; /* Dark Background */
+    border: 2px solid #b58a3e; /* Darker Gold */
+    overflow-x: auto;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #b58a3e; /* Darker Gold */
+    text-align: center;
+}
+
+th {
+    background-color: #b58a3e; /* Darker Gold */
+    color: black;
+    font-weight: bold;
+}
+
+td {
+    color: white;
+}
+
+/* Action Buttons */
+.edit-booking-btn,
+.delete-booking-btn,
+.cancel-booking-btn {
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.edit-booking-btn {
+    background-color: #ffcc00; /* Slightly muted gold */
+    color: black;
+}
+
+.delete-booking-btn {
+    background-color: #b58a3e; /* Darker Gold */
+    color: white;
+}
+
+.cancel-booking-btn {
+    background-color: #555; /* Darker gray */
+    color: white;
+}
+
+.edit-booking-btn:hover {
+    background-color: #e6b800;
+}
+
+.delete-booking-btn:hover {
+    background-color: #8f7a2f; /* Muted gold brown */
+}
+
+.cancel-booking-btn:hover {
+    background-color: #444; /* Darker gray */
+}
+
+/* Dropdown Styling */
+.driver-select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #b58a3e; /* Darker Gold */
+    background-color: #1a1a1a; /* Dark Background */
+    color: white;
+    cursor: pointer;
+}
+
+/* Split-Screen Form Layout */
 .container {
     display: flex;
     width: 80%;
@@ -85,10 +193,10 @@ h2 {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-/* ✅ Left Section (Intro) */
+/* Left Section  */
 .left-panel {
     width: 40%;
-    background: #ffcc00; /* Gold Theme */
+    background: #b58a3e; /* Darker Gold */
     color: #121212;
     display: flex;
     flex-direction: column;
@@ -108,7 +216,7 @@ h2 {
     text-align: center;
 }
 
-/* ✅ Right Section (Form) */
+/* Right Section (Form) */
 .right-panel {
     width: 60%;
     background: #ffffff;
@@ -123,7 +231,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-/* ✅ Input Fields */
+/* Input Fields */
 .form-group {
     margin-bottom: 15px;
 }
@@ -145,15 +253,15 @@ h2 {
     transition: 0.3s;
 }
 
-/* ✅ Input Focus */
+/* Input Focus */
 .form-group input:focus, .form-group select:focus {
-    border-color: #ffcc00;
-    box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+    border-color: #b58a3e; /* Darker Gold */
+    box-shadow: 0 0 10px rgba(181, 138, 62, 0.3); /* Darker Gold Glow */
 }
 
-/* ✅ Buttons */
+/* Buttons */
 button {
-    background: #2ecc71; /* Green */
+    background: #2ecc71;
     color: white;
     font-size: 1rem;
     font-weight: bold;
@@ -169,7 +277,7 @@ button:hover {
     background: #27ae60;
 }
 
-/* ✅ Cancel Button */
+/* Cancel Button */
 .cancel-btn {
     background: #ddd;
     color: #333;
@@ -180,7 +288,7 @@ button:hover {
     background: #bbb;
 }
 
-/* ✅ Responsive Design */
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;

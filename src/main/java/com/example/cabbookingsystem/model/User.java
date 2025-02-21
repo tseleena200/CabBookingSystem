@@ -10,6 +10,16 @@ public class User {
     private String password;
     private String role;
 
+    // ✅ Constructor for Fetching Employees from Database (Includes ID, No Password)
+    public User(int id, String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String role) {
+        this.id = id;
+        this.customerRegistrationNumber = customerRegistrationNumber;
+        this.fullName = fullName;
+        this.address = address;
+        this.nicNumber = nicNumber;
+        this.email = email;
+        this.role = role;
+    }
     //  Constructor for Employees (default role)
     public User(String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String password) {
         this.customerRegistrationNumber = customerRegistrationNumber;

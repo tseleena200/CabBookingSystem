@@ -1,7 +1,6 @@
 package com.example.cabbookingsystem.servlets;
 
-import com.example.cabbookingsystem.dao.DriverDAO;
-import com.example.cabbookingsystem.model.Driver;
+import com.example.cabbookingsystem.service.DriverService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +11,7 @@ import java.io.IOException;
 @WebServlet("/admin/EditDriverServlet")
 public class EditDriverServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private final DriverDAO driverDAO = DriverDAO.getInstance();
+    private final DriverService driverService = new DriverService(); // Use the service layer
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
@@ -22,15 +21,13 @@ public class EditDriverServlet extends HttpServlet {
             String licenseNumber = request.getParameter("license_number");
 
             // Create Updated Driver Object
-            Driver driver = new Driver(driverId, fullName, licenseNumber, contactNumber);
+            String result = driverService.updateDriver(driverId, fullName, licenseNumber, contactNumber); // Call service layer method
 
-            boolean updated = driverDAO.updateDriver(driver);
-
-            if (updated) {
-                //  Redirect with success message
+            if ("success".equals(result)) {
+                // Redirect with success message
                 response.sendRedirect("manage_drivers_admin.jsp?success=driver_updated");
             } else {
-                response.sendRedirect("manage_drivers_admin.jsp?error=update_failed");
+                response.sendRedirect("manage_drivers_admin.jsp?error=" + result); // Use the error message returned from the service layer
             }
         } catch (NumberFormatException e) {
             response.sendRedirect("manage_drivers_admin.jsp?error=invalid_driver_id");

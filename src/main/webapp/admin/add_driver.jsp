@@ -8,13 +8,13 @@
 <body>
 
 <div class="container">
-  <!-- ✅ Left Panel (Intro) -->
+
   <div class="left-panel">
     <h2>Add New Driver </h2>
     <p>Fill in the details to add a new driver.</p>
   </div>
 
-  <!-- ✅ Right Panel (Form) -->
+
   <div class="right-panel">
     <h1>Add a New Driver</h1>
     <form id="addDriverForm" action="../addDriver" method="POST">
