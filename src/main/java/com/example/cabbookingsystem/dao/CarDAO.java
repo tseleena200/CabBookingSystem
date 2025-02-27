@@ -192,4 +192,26 @@ public class CarDAO {
         }
         return false;
     }
+
+    public Car getCarByDriverId(int driverId) {
+        String query = "SELECT id, model, license_plate, capacity, driver_id FROM cars WHERE driver_id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, driverId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Car car = new Car();
+                car.setId(rs.getInt("id"));
+                car.setModel(rs.getString("model"));
+                car.setLicensePlate(rs.getString("license_plate"));
+                car.setCapacity(rs.getInt("capacity"));
+                car.setDriverId(rs.getInt("driver_id"));
+                return car;
+            }
+        } catch (SQLException e) {
+            System.out.println(" [ERROR] Failed to fetch car by driver ID: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null; // No car found
+    }
 }

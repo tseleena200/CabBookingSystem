@@ -228,7 +228,7 @@
   function deleteDriver(driverId) {
     Swal.fire({
       title: "Are you sure?",
-      text: "This driver will be permanently deleted!",
+      text: "This driver will be permanently deleted with its assgined car ",
       icon: "warning",
       showCancelButton: true,
       confirmButtonText: "Yes, delete it!",

@@ -169,6 +169,7 @@
 
 <!-- JavaScript for Delete functionality with SweetAlert -->
 <script>
+  // Function to confirm delete action for employee
   function confirmDelete(customerRegistrationNumber) {
     Swal.fire({
       title: 'Are you sure?',
@@ -182,9 +183,87 @@
       if (result.isConfirmed) {
         // Submit the form to delete the employee
         document.getElementById('deleteForm_' + customerRegistrationNumber).submit();
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Employee has been deleted successfully.',
+          icon: 'success',
+          confirmButtonColor: '#28a745',
+          timer: 3000, // Show success for 2 seconds
+          showConfirmButton: false // Hide the confirm button
+        });
+      } else {
+        Swal.fire({
+          title: 'Cancelled!',
+          text: 'The action was cancelled.',
+          icon: 'info',
+          confirmButtonColor: '#3085d6',
+          timer: 2000, // Show cancellation message for 2 seconds
+          showConfirmButton: false // Hide the confirm button
+        });
       }
     });
   }
+
+  // Function to show success message after employee details edit
+  function showEditSuccess() {
+    Swal.fire({
+      title: 'Updated!',
+      text: 'Employee details have been updated successfully.',
+      icon: 'success',
+      confirmButtonColor: '#28a745',
+      timer: 3000, // Show success for 2 seconds
+      showConfirmButton: false // Hide the confirm button
+    });
+  }
+
+  // Function to show error message if edit failed
+  function showEditError() {
+    Swal.fire({
+      title: 'Error!',
+      text: 'Something went wrong. Please try again.',
+      icon: 'error',
+      confirmButtonColor: '#d33',
+      timer: 3000, // Show error for 2 seconds
+      showConfirmButton: false // Hide the confirm button
+    });
+  }
+
+  // Function to show error message for invalid employee data (for edit)
+  function validateEmployeeEditForm() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+
+    // Validate name and email
+    if (name.trim() === '' || email.trim() === '') {
+      Swal.fire({
+        title: 'Missing Information!',
+        text: 'Please fill in all the required fields.',
+        icon: 'warning',
+        confirmButtonColor: '#f39c12',
+        timer: 3000, // Show warning for 2 seconds
+        showConfirmButton: false // Hide the confirm button
+      });
+      return false; // Prevent form submission
+    }
+
+    // Check if email format is valid
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      Swal.fire({
+        title: 'Invalid Email!',
+        text: 'Please enter a valid email address.',
+        icon: 'error',
+        confirmButtonColor: '#d33',
+        timer: 3000, // Show error for 2 seconds
+        showConfirmButton: false // Hide the confirm button
+      });
+      return false; // Prevent form submission
+    }
+
+    return true; // Form is valid
+  }
+
+
 </script>
 
 </body>

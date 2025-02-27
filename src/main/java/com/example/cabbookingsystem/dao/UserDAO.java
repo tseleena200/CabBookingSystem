@@ -174,7 +174,7 @@ public class UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() && rs.getInt(1) > 0; // Returns true if email exists
+            return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -187,7 +187,7 @@ public class UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nic);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() && rs.getInt(1) > 0; // Returns true if NIC exists
+            return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -200,7 +200,7 @@ public class UserDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, customerRegNum);
             ResultSet rs = stmt.executeQuery();
-            return rs.next() && rs.getInt(1) > 0; // Returns true if registration number exists
+            return rs.next() && rs.getInt(1) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }

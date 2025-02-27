@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 
 @WebServlet("/admin/DeleteDriverServlet")
@@ -20,17 +21,22 @@ public class DeleteDriverServlet extends HttpServlet {
             try {
                 int driverId = Integer.parseInt(driverIdStr);
 
-                // 🚕 Delete Driver via Service Layer
+                //  Delete Driver via Service Layer
                 String result = driverService.deleteDriver(driverId);
 
+                // Handle the response based on the result from the service layer
                 if ("success".equals(result)) {
                     response.sendRedirect("manage_drivers_admin.jsp?success=driver_deleted");
+                } else if ("delete_car_failed".equals(result)) {
+                    response.sendRedirect("manage_drivers_admin.jsp?error=delete_car_failed");
                 } else {
                     response.sendRedirect("manage_drivers_admin.jsp?error=" + result);
                 }
             } catch (NumberFormatException e) {
                 response.sendRedirect("manage_drivers_admin.jsp?error=invalid_driver_id");
             }
+        } else {
+            response.sendRedirect("manage_drivers_admin.jsp?error=missing_driver_id");
         }
     }
 }

@@ -6,7 +6,7 @@ public class Car {
     private String licensePlate;
     private int capacity;
     private Integer driverId; // Can be NULL
-    private String driverName; // ✅ Added driverName field
+    private String driverName;
 
     // ✅ Constructor for adding a new car
     public Car(String model, String licensePlate, int capacity, Integer driverId) {

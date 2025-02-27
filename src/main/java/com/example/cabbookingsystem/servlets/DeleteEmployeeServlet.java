@@ -20,7 +20,7 @@ public class DeleteEmployeeServlet extends HttpServlet {
         if (customerRegistrationNumber != null && !customerRegistrationNumber.isEmpty()) {
             String result = userService.deleteEmployee(customerRegistrationNumber);
             request.setAttribute("operationResult", result);
-            request.getRequestDispatcher("manage_employees.jsp").forward(request, response); // Forward result to JSP
+            request.getRequestDispatcher("manage_employees.jsp").forward(request, response);
         } else {
             response.getWriter().write("Invalid employee registration number");
         }

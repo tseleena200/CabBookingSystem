@@ -22,11 +22,7 @@ public class EditEmployeeServlet extends HttpServlet {
             response.sendRedirect("manage_employees.jsp");
             return;
         }
-
-        // Set the employee object in the request attributes to be used in the JSP
         request.setAttribute("employee", employee);
-
-        // Forward the request to the edit employee JSP page
         request.getRequestDispatcher("/admin/edit_employee.jsp").forward(request, response);
     }
 }

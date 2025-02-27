@@ -39,17 +39,16 @@
                value="<%= request.getParameter("order_number") != null ? request.getParameter("order_number") : "" %>">
 
         <label>Enter Distance (KM):</label>
-        <input type="number" id="distance" name="distance" required step="0.1" min="0">
+        <input type="number" id="distance" name="distance" step="0.1">
 
         <label>Enter Base Fare:</label>
-        <input type="number" id="base_fare" name="base_fare" required step="0.1" min="0">
-
+        <input type="number" id="base_fare" name="base_fare" step="0.1">
 
         <label>Enter Tax Rate (%):</label>
-        <input type="number" id="tax_rate" name="tax_rate" required step="0.1" min="0" max="100" value="5">
+        <input type="number" id="tax_rate" name="tax_rate" step="0.1">
 
         <label>Enter Discount Rate (%):</label>
-        <input type="number" id="discount_rate" name="discount_rate" required step="0.1" min="0" max="100" value="10">
+        <input type="number" id="discount_rate" name="discount_rate" step="0.1">
 
         <button type="submit" class="bill-btn">Calculate Bill</button>
     </form>

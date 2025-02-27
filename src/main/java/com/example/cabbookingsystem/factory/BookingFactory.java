@@ -19,7 +19,7 @@ public class BookingFactory {
         taxRate = (taxRate >= 0) ? taxRate : 0.0;
         discountRate = (discountRate >= 0) ? discountRate : 0.0;
 
-        LOGGER.log(Level.INFO, "📌 BookingFactory Received: Order#: {0}, Model: {1}, License Plate: {2}, Driver: {3}",
+        LOGGER.log(Level.INFO, "BookingFactory Received: Order#: {0}, Model: {1}, License Plate: {2}, Driver: {3}",
                 new Object[]{orderNumber, model, licensePlate, fullName});
 
         return new Booking(orderNumber, customerName, customerAddress, phoneNumber, destination,

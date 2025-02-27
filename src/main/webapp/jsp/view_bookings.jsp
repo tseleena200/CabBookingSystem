@@ -49,15 +49,50 @@
             font-weight: bold;
             transition: 0.3s;
         }
+        .status-confirmed {
+            color: green;
+            font-weight: bold;
+        }
+
+        /* Styling buttons with gold theme */
+        .action-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            transition: 0.3s;
+            margin: 5px;
+        }
+
         .confirm-btn {
             background-color: #FFD700;
         }
         .confirm-btn:hover {
             background-color: #FFC107;
         }
-        .status-confirmed {
-            color: green;
-            font-weight: bold;
+
+        .edit-booking-btn {
+            background-color: #FFD700;
+        }
+        .edit-booking-btn:hover {
+            background-color: #FFC107;
+        }
+
+        .delete-booking-btn {
+            background-color: #FFD700;
+        }
+        .delete-booking-btn:hover {
+            background-color: #FFC107;
+        }
+
+        .cancel-booking-btn {
+            background-color: #FFD700;
+        }
+        .cancel-booking-btn:hover {
+            background-color: #FFC107;
         }
     </style>
 </head>
@@ -98,7 +133,7 @@
         <th>Driver Name</th> <!-- ✅ Added Driver Name -->
         <th>Total Amount</th>
         <th>Status</th>
-        <th>Confirmed By</th>
+        <th>Confirmed</th>
         <th>Actions</th>
     </tr>
     </thead>
@@ -121,26 +156,28 @@
         <td><%= booking.getFullName() %></td>
         <td><%= booking.getTotalAmount() %></td>
         <td id="status_<%= booking.getOrderNumber() %>"><%= booking.getStatus() %></td>
+
         <td>
-            <% if (!"Confirmed".equals(booking.getStatus())) { %>
+            <% if (!"Confirmed".equals(booking.getStatus()) && !"Cancelled".equals(booking.getStatus())) { %>
             <button class="confirm-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">Confirm</button>
             <% } %>
         </td>
         <td>
-            <a href="<%= request.getContextPath() %>/jsp/editbooking.jsp?order_number=<%= booking.getOrderNumber() %>" class="edit-booking-btn">
-                ✏️ Edit
+            <% if (!"Cancelled".equals(booking.getStatus())) { %>
+            <a href="<%= request.getContextPath() %>/jsp/editbooking.jsp?order_number=<%= booking.getOrderNumber() %>" class="action-btn edit-booking-btn">
+                Edit
             </a>
+            <% } %>
 
-            <button class="delete-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">🗑️ Delete</button>
+            <button class="action-btn delete-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">🗑Delete</button>
 
             <% if (!"Cancelled".equals(booking.getStatus())) { %>
-            <button class="cancel-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">🚫 Cancel</button>
+            <button class="action-btn cancel-booking-btn" data-order-number="<%= booking.getOrderNumber() %>">Cancel</button>
             <% } %>
         </td>
     </tr>
     <% } %> <!-- ✅ Properly closing the loop -->
     </tbody>
-
 </table>
 
 </body>

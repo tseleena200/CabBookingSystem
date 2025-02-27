@@ -55,29 +55,29 @@
 
     <form id="bookingForm" method="POST" action="../addBooking">
         <label>Customer Name:</label>
-        <input type="text" id="customer_name" name="customer_name" required>
+        <input type="text" id="customer_name" name="customer_name">
 
         <label>Customer Email:</label>
-        <input type="email" id="customer_email" name="customer_email" required>
+        <input type="email" id="customer_email" name="customer_email">
 
         <label>Customer Address:</label>
-        <input type="text" id="customer_address" name="customer_address" required>
+        <input type="text" id="customer_address" name="customer_address">
 
         <label>Telephone:</label>
-        <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]+" required title="Only numbers allowed">
+        <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]+" title="Only numbers allowed">
 
         <label>Destination:</label>
-        <input type="text" id="destination" name="destination" required>
+        <input type="text" id="destination" name="destination">
 
         <label>Scheduled Date:</label>
-        <input type="date" id="scheduled_date" name="scheduled_date" required>
+        <input type="date" id="scheduled_date" name="scheduled_date">
 
         <label>Scheduled Time:</label>
-        <input type="time" id="scheduled_time" name="scheduled_time" required>
+        <input type="time" id="scheduled_time" name="scheduled_time">
 
         <!-- Add Car Selection -->
         <label>Select Car:</label>
-        <select id="car_id" name="car_id" required>
+        <select id="car_id" name="car_id"  onchange="updateDriverId()">
             <option value="">-- Select Car --</option>
             <%
                 BookingDAO bookingDAO = BookingDAO.getInstance();
@@ -87,15 +87,17 @@
             <option value="">No Available Cars</option>
             <% } else {
                 for (String[] car : availableCars) {
+                    int driverId = Integer.parseInt(car[2]); // Assuming car[2] holds the driver ID
+                    String driverName = bookingDAO.getDriverNameById(driverId); // Fetch the driver's full name
             %>
-            <option value="<%= car[0] %>" data-driver-id="<%= car[2] %>">
-                <%= car[1] %> (Driver ID: <%= car[2] %>)
+            <option value="<%= car[0] %>" data-driver-id="<%= driverId %>">
+                <%= car[1] %> (Driver: <%= driverName %>)
             </option>
             <% } } %>
         </select>
 
         <label>Select Fare Type:</label>
-        <select id="fare_type" name="fare_type" required>
+        <select id="fare_type" name="fare_type">
             <option value="">-- Select Fare Type --</option>
             <option value="Standard">Standard</option>
             <option value="Luxury">Luxury</option>

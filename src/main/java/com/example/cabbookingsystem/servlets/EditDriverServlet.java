@@ -24,10 +24,9 @@ public class EditDriverServlet extends HttpServlet {
             String result = driverService.updateDriver(driverId, fullName, licenseNumber, contactNumber); // Call service layer method
 
             if ("success".equals(result)) {
-                // Redirect with success message
                 response.sendRedirect("manage_drivers_admin.jsp?success=driver_updated");
             } else {
-                response.sendRedirect("manage_drivers_admin.jsp?error=" + result); // Use the error message returned from the service layer
+                response.sendRedirect("manage_drivers_admin.jsp?error=" + result);
             }
         } catch (NumberFormatException e) {
             response.sendRedirect("manage_drivers_admin.jsp?error=invalid_driver_id");

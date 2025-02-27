@@ -156,9 +156,9 @@ public class DriverDAO {
         return false;
     }
     //  Fetch Driver's Full Name by Driver ID
-    public String getDriverFullNameById(int driverId) {  // ✅ Changed from getDriverNameById to getDriverFullNameById
+    public String getDriverFullNameById(int driverId) {
         String fullName = "Unknown Driver"; // Default if not found
-        String query = "SELECT full_name FROM drivers WHERE id = ?"; // ✅ Correct column name
+        String query = "SELECT full_name FROM drivers WHERE id = ?";
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, driverId);
@@ -184,4 +184,5 @@ public class DriverDAO {
         }
         return false;
     }
+
 }

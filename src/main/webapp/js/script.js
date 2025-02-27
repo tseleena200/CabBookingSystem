@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     text: "Please fill in both email and password.",
                     confirmButtonColor: "#d33"
                 });
-                return; // Stop submission if validation fails
+                return;
             }
 
             // Client-Side Validation for Email Format
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     text: "Please enter a valid email address.",
                     confirmButtonColor: "#d33"
                 });
-                return; // Stop submission if email format is invalid
+                return;
             }
 
             // Send POST request if validation passes
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-// Display logout message if the "logged_out" message is passed in the URL
+
     window.onload = function() {
         const urlParams = new URLSearchParams(window.location.search);
         const message = urlParams.get('message');
@@ -140,143 +140,145 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
 
-            // Validate Customer Registration Number (only letters and numbers allowed)
-            if (!/^[A-Za-z0-9]+$/.test(customerRegNum)) {
-                valid = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid Registration Number",
-                    text: "Please use only letters and numbers for the registration number.",
-                    confirmButtonColor: "#d33"
-                });
-            }
-
-            // Validate Full Name (only alphabets and spaces allowed)
-            if (!/^[A-Za-z ]+$/.test(fullName)) {
-                valid = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid Name",
-                    text: "Name should contain only letters and spaces.",
-                    confirmButtonColor: "#d33"
-                });
-            }
-
-            // Validate NIC (must be 10 or 12 digits)
-            if (!/^\d{10}$|^\d{12}$/.test(nic)) {
-                valid = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid NIC",
-                    text: "NIC should be either 10 or 12 digits long.",
-                    confirmButtonColor: "#d33"
-                });
-            }
-
-            // Validate Email format
-            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailPattern.test(email)) {
-                valid = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid Email",
-                    text: "Please enter a valid email address.",
-                    confirmButtonColor: "#d33"
-                });
-            }
-
-            // Validate Password (at least 6 characters, including one letter and one number)
-            const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-            if (!passwordPattern.test(password)) {
-                valid = false;
-                Swal.fire({
-                    icon: "error",
-                    title: "Invalid Password",
-                    text: "Password must be at least 6 characters with at least one letter and one number.",
-                    confirmButtonColor: "#d33"
-                });
-            }
-
-            // If all client-side validations pass, proceed to check for duplicates
+            // If no empty fields, validate individual fields
             if (valid) {
-                // Check for duplicate Registration Number, NIC, and Email on the server
-                Promise.all([
-                    checkDuplicate("customer_registration_number", customerRegNum),
-                    checkDuplicate("nic_number", nic),
-                    checkDuplicate("email", email)
-                ])
-                    .then(results => {
-                        if (results[0]) {
-                            valid = false;
-                            Swal.fire({
-                                icon: "error",
-                                title: "Duplicate Registration Number",
-                                text: "This Customer Registration Number is already taken.",
-                                confirmButtonColor: "#d33"
-                            });
-                        }
-                        if (results[1]) {
-                            valid = false;
-                            Swal.fire({
-                                icon: "error",
-                                title: "Duplicate NIC",
-                                text: "This NIC is already taken.",
-                                confirmButtonColor: "#d33"
-                            });
-                        }
-                        if (results[2]) {
-                            valid = false;
-                            Swal.fire({
-                                icon: "error",
-                                title: "Duplicate Email",
-                                text: "This Email is already taken.",
-                                confirmButtonColor: "#d33"
-                            });
-                        }
-
-                        // If no duplicates, submit the form
-                        if (valid) {
-                            fetch("../register", {
-                                method: "POST",
-                                body: new URLSearchParams(formData)
-                            })
-                                .then(response => response.text())
-                                .then(data => {
-                                    console.log(data); // Log data to check server response
-                                    if (data.trim() === "success") {
-                                        Swal.fire({
-                                            icon: "success",
-                                            title: "Registration Successful!",
-                                            text: "Employee has been registered.",
-                                            timer: 2500,
-                                            showConfirmButton: false
-                                        }).then(() => {
-                                            window.location.href = "../admin/admin_panel.jsp";
-                                        });
-                                    } else {
-                                        Swal.fire({
-                                            icon: "error",
-                                            title: "Registration Failed!",
-                                            text: "An error occurred while registering. Server response: " + data,  // Displaying the response from server
-                                            confirmButtonColor: "#d33"
-                                        });
-                                    }
-                                })
-                                .catch(error => {
-                                    console.error("🚨 Registration request failed:", error);
-                                });
-                        }
+                // Validate Customer Registration Number (only letters and numbers allowed)
+                if (!/^[A-Za-z0-9]+$/.test(customerRegNum)) {
+                    valid = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Registration Number",
+                        text: "Please use only letters and numbers for the registration number.",
+                        confirmButtonColor: "#d33"
                     });
+                }
+
+                // Validate Full Name (only alphabets and spaces allowed)
+                if (!/^[A-Za-z ]+$/.test(fullName)) {
+                    valid = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Name",
+                        text: "Name should contain only letters and spaces.",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+                // Validate NIC (must be 10 or 12 digits)
+                if (!/^\d{10}$|^\d{12}$/.test(nic)) {
+                    valid = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid NIC",
+                        text: "NIC should be either 10 or 12 digits long.",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+                // Validate Email format
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    valid = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Email",
+                        text: "Please enter a valid email address.",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+                // Validate Password (at least 6 characters, including one letter and one number)
+                const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+                if (!passwordPattern.test(password)) {
+                    valid = false;
+                    Swal.fire({
+                        icon: "error",
+                        title: "Invalid Password",
+                        text: "Password must be at least 6 characters with at least one letter and one number.",
+                        confirmButtonColor: "#d33"
+                    });
+                }
+
+                // If all client-side validations pass, proceed to check for duplicates
+                if (valid) {
+                    // Check for duplicate Registration Number, NIC, and Email on the server
+                    Promise.all([
+                        checkDuplicate("customer_registration_number", customerRegNum),
+                        checkDuplicate("nic_number", nic),
+                        checkDuplicate("email", email)
+                    ])
+                        .then(results => {
+                            if (results[0]) {
+                                valid = false;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Duplicate Registration Number",
+                                    text: "This Registration Number is already taken.",
+                                    confirmButtonColor: "#d33"
+                                });
+                            }
+                            if (results[1]) {
+                                valid = false;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Duplicate NIC",
+                                    text: "This NIC is already taken.",
+                                    confirmButtonColor: "#d33"
+                                });
+                            }
+                            if (results[2]) {
+                                valid = false;
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Duplicate Email",
+                                    text: "This Email is already taken.",
+                                    confirmButtonColor: "#d33"
+                                });
+                            }
+
+                            // If no duplicates, submit the form
+                            if (valid) {
+                                fetch("../register", {
+                                    method: "POST",
+                                    body: new URLSearchParams(formData)
+                                })
+                                    .then(response => response.text())
+                                    .then(data => {
+                                        console.log(data); // Log data to check server response
+                                        if (data.trim() === "success") {
+                                            Swal.fire({
+                                                icon: "success",
+                                                title: "Registration Successful!",
+                                                text: "Employee has been registered.",
+                                                timer: 2500,
+                                                showConfirmButton: false
+                                            }).then(() => {
+                                                window.location.href = "../admin/admin_panel.jsp";
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: "error",
+                                                title: "Registration Failed!",
+                                                text: "An error occurred while registering. Server response: " + data,  // Displaying the response from server
+                                                confirmButtonColor: "#d33"
+                                            });
+                                        }
+                                    })
+                                    .catch(error => {
+                                        console.error("🚨 Registration request failed:", error);
+                                    });
+                            }
+                        });
+                }
             }
         });
     }
-
-// Helper function to check for duplicates (AJAX request to check server-side)
+// Helper function to check for duplicates
     function checkDuplicate(field, value) {
         return fetch(`../check_duplicate?field=${field}&value=${encodeURIComponent(value)}`)
             .then(response => response.text())
             .then(data => {
-                return data.trim() === "duplicate"; // Server returns "duplicate" if value exists
+                return data.trim() === "duplicate";
             });
     }
 
@@ -318,6 +320,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // ✅ FULL INPUT VALIDATIONS
 
+            // ✅ Missing Fields Check (Ensure that all required fields are filled)
+            if (!customerName || !customerAddress || !phoneNumber || !destination || !scheduledDate || !scheduledTime || !fareType || !carId || !driverId) {
+                Swal.fire("Missing Fields!", "Please fill in all required fields.", "error");
+                return;
+            }
             // ✅ Name Validation (Only letters & spaces allowed)
             if (!/^[a-zA-Z\s]+$/.test(customerName)) {
                 Swal.fire("Invalid Name!", "Customer name should contain only letters and spaces.", "error");
@@ -339,6 +346,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // ✅ Destination Validation (Cannot be the same as Address)
             if (destination.toLowerCase() === customerAddress.toLowerCase()) {
                 Swal.fire("Invalid Destination!", "Destination cannot be the same as the address.", "error");
+                return;
+            }
+            // Check for destination format (allow only letters, spaces, commas, periods)
+            if (!/^[a-zA-Z\s,.'-]+$/.test(destination)) {
+                Swal.fire("Invalid Destination!", "Destination should contain only letters, spaces, commas, periods, or hyphens.", "error");
                 return;
             }
 
@@ -372,6 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+
             let formData = new URLSearchParams(new FormData(bookingForm));
 
             fetch("../addBooking", {
@@ -395,7 +408,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             timer: 3000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "view_bookings.jsp"; // ✅ Redirect correctly after SweetAlert
+                            window.location.href = "view_bookings.jsp";
                         });
 
                     } else if (responseData === "db_insert_fail") {
@@ -464,7 +477,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-// ✅ Handle Bill Calculation
+// ✅ Bill calcualtion
     let billForm = document.getElementById("billForm");
     if (billForm) {
         billForm.addEventListener("submit", function (event) {
@@ -476,30 +489,46 @@ document.addEventListener("DOMContentLoaded", function () {
             let taxRate = document.getElementById("tax_rate").value.trim();
             let discountRate = document.getElementById("discount_rate").value.trim();
 
-            console.log("📌 Submitting Order Number:", orderNumber);
-            console.log("📌 Distance Entered:", distance);
-            console.log("📌 Base Fare Entered:", baseFare);
-            console.log("📌 Tax Rate Entered:", taxRate);
-            console.log("📌 Discount Rate Entered:", discountRate);
+            console.log(" Submitting Order Number:", orderNumber);
+            console.log(" Distance Entered:", distance);
+            console.log(" Base Fare Entered:", baseFare);
+            console.log(" Tax Rate Entered:", taxRate);
+            console.log(" Discount Rate Entered:", discountRate);
 
-            // ✅ Input Validations
+            // ✅ Input Validations for empty fields and value checks
             if (!orderNumber) {
                 Swal.fire("Error!", "Please enter a valid order number.", "error");
                 return;
             }
-            if (!distance || isNaN(distance) || distance <= 0) {
+
+            if (!distance) {
+                Swal.fire("Error!", "Please enter a valid distance.", "error");
+                return;
+            } else if (isNaN(distance) || distance <= 0) {
                 Swal.fire("Error!", "Please enter a valid distance greater than 0.", "error");
                 return;
             }
-            if (!baseFare || isNaN(baseFare) || baseFare <= 0) {
+
+            if (!baseFare) {
+                Swal.fire("Error!", "Please enter a valid base fare.", "error");
+                return;
+            } else if (isNaN(baseFare) || baseFare <= 0) {
                 Swal.fire("Error!", "Please enter a valid base fare greater than 0.", "error");
                 return;
             }
-            if (!taxRate || isNaN(taxRate) || taxRate < 0 || taxRate > 100) {
+
+            if (!taxRate) {
+                Swal.fire("Error!", "Please enter a valid tax rate.", "error");
+                return;
+            } else if (isNaN(taxRate) || taxRate < 0 || taxRate > 100) {
                 Swal.fire("Error!", "Please enter a valid tax rate (0-100%).", "error");
                 return;
             }
-            if (!discountRate || isNaN(discountRate) || discountRate < 0 || discountRate > 100) {
+
+            if (!discountRate) {
+                Swal.fire("Error!", "Please enter a valid discount rate.", "error");
+                return;
+            } else if (isNaN(discountRate) || discountRate < 0 || discountRate > 100) {
                 Swal.fire("Error!", "Please enter a valid discount rate (0-100%).", "error");
                 return;
             }
@@ -520,12 +549,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     console.log("🔍 Server Response:", data.trim());
 
-                    // ✅ Stop execution if the order is already calculated
+                    // ✅ If the bill has already been calculated, show the warning and stop further execution
                     if (data === "already_calculated") {
                         Swal.fire("Warning!", "This order has already been calculated.", "warning");
                         return;
                     }
 
+                    // Now handle success and other errors
                     if (data.startsWith("success:")) {
                         let fareData = data.split(":")[1].split(",");
                         let totalFare = parseFloat(fareData[0]).toFixed(2); // ✅ Format to 2 decimal places
@@ -562,12 +592,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
+
     // ✅ EDIT BOOKING FORM HANDLING
     let editBookingForm = document.getElementById("editBookingForm");
     if (editBookingForm) {
         editBookingForm.addEventListener("submit", function(event) {
             event.preventDefault();
             let formData = new FormData(this);
+
             fetch("../editBooking", {
                 method: "POST",
                 body: new URLSearchParams(formData)
@@ -583,7 +616,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             timer: 2000,
                             showConfirmButton: false
                         }).then(() => {
-                            window.location.href = "view_bookings.jsp";
+                            // Redirect based on the backend response
+                            if (data.trim() === "redirect_to_admin") {
+                                window.location.href = "manage_bookings_admin.jsp"; // Redirect to admin page
+                            } else if (data.trim() === "redirect_to_employee") {
+                                window.location.href = "view_bookings.jsp"; // Redirect to employee page
+                            }
                         });
                     } else {
                         Swal.fire("Error!", "Failed to update booking.", "error");
@@ -695,7 +733,7 @@ document.addEventListener("DOMContentLoaded", function () {
             filterStatus.addEventListener("change", function () {
                 let status = this.value;
                 document.querySelectorAll("tbody tr").forEach(row => {
-                    let rowStatus = row.children[6]?.innerText || "";  // Status is in the 7th column (index 6)
+                    let rowStatus = row.children[6]?.innerText || "";
                     row.style.display = status === "" || rowStatus === status ? "" : "none";
                 });
             });
@@ -704,8 +742,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // Driver reassignment functionality for bookings
         document.querySelectorAll(".driver-select").forEach(select => {
             select.addEventListener("change", function () {
-                let orderNumber = this.dataset.orderNumber;  // Get the order number from the select element
-                let driverId = this.value;  // Get the driver ID from the selected option
+                let orderNumber = this.dataset.orderNumber;
+                let driverId = this.value;
 
                 if (driverId) {
                     fetch("../updateDriver", {
@@ -732,9 +770,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // ✅ Handle Complete Booking functionality
         document.addEventListener("click", function (event) {
-            // Check if the clicked element is the "Complete Booking" button
+
             if (event.target.classList.contains("complete-booking-btn")) {
-                let orderNumber = event.target.dataset.orderNumber;  // Get order number from button's data attribute
+                let orderNumber = event.target.dataset.orderNumber;
 
                 Swal.fire({
                     title: "Complete Booking?",
@@ -763,7 +801,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         statusCell.innerHTML = "<span class='status-completed'>Completed</span>";
                                     }
 
-                                    // Disable the "Complete" button once booking is completed
+
                                     event.target.disabled = true;
                                 } else {
                                     Swal.fire("Error!", "Failed to complete the booking.", "error");
@@ -862,11 +900,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const successMessage = urlParams.get("success");
         const errorMessage = urlParams.get("error");
 
-        // Debug: Log the parameters to make sure they're being passed
+
         console.log("Success message:", successMessage);
         console.log("Error message:", errorMessage);
 
-        // Display SweetAlert based on the success or error message
+
         if (successMessage === "car_deleted") {
             Swal.fire({
                 title: "Success!",
@@ -919,7 +957,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     } else if (data.trim() === "duplicate_license") {
                         Swal.fire({
                             icon: "warning",
-                            title: "Duplicate License Plate!",
+                            title: "Duplicate drvier License number !",
                             text: "This license plate is already registered.",
                             confirmButtonColor: "#f39c12"
                         });

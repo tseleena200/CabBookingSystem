@@ -2,7 +2,7 @@ package com.example.cabbookingsystem.model;
 
 public class User {
     private int id;
-    private String customerRegistrationNumber;
+    private String customerRegistrationNumber; //which is employee reg number
     private String fullName;
     private String address;
     private String nicNumber;

@@ -1,0 +1,43 @@
+Test Case 1: Admin Login
+
+Test Case ID: TC01
+Test Case Objective: Verify that the admin can successfully log in with valid credentials.
+Test Data: 
+    - Email: admin@megacitycab.com
+    - Password: Admin123
+Expected Result: Admin should be logged in successfully and redirected to the admin dashboard.
+Actual Result: Admin successfully logged in and redirected to the admin dashboard as expected.
+Conclusion: Test case is successful.
+
+Test Case 2: Invalid Admin Login
+
+Test Case ID: TC02
+Test Case Objective: Verify that the admin receives an error message with invalid credentials.
+Test Data: 
+    - Email: wrongemail@megacitycab.com
+    - Password: Admin123
+Expected Result: An error message “Invalid email or password” should be displayed.
+Actual Result: Error message “Invalid email or password” was displayed as expected.
+Conclusion: Test case is successful.
+
+Test Case 3: Employee Login
+
+Test Case ID: TC03
+Test Case Objective: Verify that an employee can successfully log in with valid credentials.
+Test Data: 
+    - Email: employee@megacitycab.com
+    - Password: Employee123
+Expected Result: Employee should be logged in successfully and redirected to the employee dashboard.
+Actual Result: Employee successfully logged in and redirected to the employee dashboard.
+Conclusion: Test case is successful.
+
+Test Case 4: Invalid Employee Login
+
+Test Case ID: TC04
+Test Case Objective: Verify that the employee receives an error message with invalid credentials.
+Test Data: 
+    - Email: employee@megacitycab.com
+    - Password: WrongPassword
+Expected Result: An error message “Invalid email or password” should be displayed.
+Actual Result: Error message “Invalid email or password” was displayed as expected.
+Conclusion: Test case is successful.

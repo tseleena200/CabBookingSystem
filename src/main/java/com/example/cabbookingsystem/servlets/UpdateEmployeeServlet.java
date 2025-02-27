@@ -24,20 +24,19 @@ public class UpdateEmployeeServlet extends HttpServlet {
 
         // Set default role if not provided
         if (role == null || role.isEmpty()) {
-            role = "employee"; // Default to 'employee' if no role is provided
+            role = "employee";
         }
 
         // Use the service layer to update the employee
         String result = userService.updateEmployee(customerRegistrationNumber, fullName, address, nicNumber, email, role);
 
         if ("success".equals(result)) {
-            // Set update status as success before redirect
             request.setAttribute("updateStatus", "success");
-            request.getRequestDispatcher("manage_employees.jsp").forward(request, response); // Forward to manage employees page
+            request.getRequestDispatcher("manage_employees.jsp").forward(request, response);
         } else {
             // Set update status as failure before redirect
             request.setAttribute("updateStatus", "failure");
-            request.getRequestDispatcher("manage_employees.jsp").forward(request, response); // Forward to manage employees page
+            request.getRequestDispatcher("manage_employees.jsp").forward(request, response);
         }
     }
 }

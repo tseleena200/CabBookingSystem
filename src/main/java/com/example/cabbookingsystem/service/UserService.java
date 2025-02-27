@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class UserService {
     private final UserDAO userDAO = UserDAO.getInstance();
-
     // Method to register a new user
     public String registerUser(String customerRegNum, String fullName, String address, String nic, String email, String password) {
         // Validation checks
@@ -25,7 +24,9 @@ public class UserService {
         if (!Pattern.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{6,}$", password)) {
             return "weak_password";
         }
-
+        if (!Pattern.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$", email)) {
+            return "invalid_email_format";
+        }
         if (userDAO.isDuplicateEmail(email)) {
             return "duplicate_email";
         }
@@ -60,12 +61,13 @@ public class UserService {
     public boolean isDuplicateNIC(String nic) {
         return userDAO.isDuplicateNIC(nic); // Call to DAO to check NIC
     }
+
     // Method to handle login logic
     public String loginUser(String email, String password) {
         // Fetch user by email
         User user = getUserByEmail(email);
         if (user == null) {
-            return "failure"; // User not found
+            return "failure";
         }
 
         // Hash input password for comparison
@@ -78,7 +80,7 @@ public class UserService {
 
         return "failure"; // Password mismatch
     }
-    // New method to delete an employee
+    // method to delete an employee
     public String deleteEmployee(String customerRegNum) {
         boolean deleted = userDAO.deleteEmployee(customerRegNum);
 
@@ -92,8 +94,6 @@ public class UserService {
     public String updateEmployee(String customerRegistrationNumber, String fullName, String address, String nicNumber, String email, String role) {
         // Call DAO to update employee in the database
         boolean updated = userDAO.updateEmployee(customerRegistrationNumber, fullName, address, nicNumber, email, role);
-
-        // Return result based on the update status
         return updated ? "success" : "update_failed";
     }
 

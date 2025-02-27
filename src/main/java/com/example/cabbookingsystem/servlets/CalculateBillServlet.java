@@ -42,7 +42,6 @@ public class CalculateBillServlet extends HttpServlet {
         String taxRateStr = request.getParameter("tax_rate");
         String discountRateStr = request.getParameter("discount_rate");
 
-        // Check if the required parameters are provided
         if (distanceStr == null || baseFareStr == null || distanceStr.isEmpty() || baseFareStr.isEmpty()) {
             response.getWriter().write("missing_values");
             LOGGER.log(Level.WARNING, "Missing distance or base fare values.");
@@ -73,11 +72,9 @@ public class CalculateBillServlet extends HttpServlet {
         String result = bookingService.calculateBill(orderNumber, distance, baseFare, taxRate, discountRate);
 
         if (result.startsWith("success:")) {
-            // Return the calculated bill as part of the response
             response.getWriter().write(result);
             LOGGER.log(Level.INFO, "Bill updated successfully for Order Number: {0}", orderNumber);
         } else {
-            // Return an error message
             response.getWriter().write(result);
             LOGGER.log(Level.SEVERE, "Error calculating bill for Order Number: {0}", orderNumber);
         }

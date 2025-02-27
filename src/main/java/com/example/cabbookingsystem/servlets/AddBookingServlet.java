@@ -55,13 +55,12 @@ public class AddBookingServlet extends HttpServlet {
         String discountRateStr = request.getParameter("discount_rate");
         String customerEmail = request.getParameter("customer_email");
 
-        // Call the service layer to handle the booking creation logic
+        // service layer to handle the booking creation logic
         String result = bookingService.addBooking(
                 customerName, customerAddress, phoneNumber, destination, carIdStr, scheduledDateStr,
                 scheduledTimeStr, fareType, taxRateStr, discountRateStr, customerEmail, customerRegNumber
         );
 
-        // Handle the result from the service
         out.write(result);
         if (result.startsWith("success")) {
             LOGGER.log(Level.INFO, "Booking created successfully with Order Number: " + result.split(":")[1]);

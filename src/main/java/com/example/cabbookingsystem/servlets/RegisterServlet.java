@@ -32,8 +32,7 @@ public class RegisterServlet extends HttpServlet {
             response.getWriter().write("unauthorized");
             return;
         }
-
-        // Get form data
+        //  form data
         String customerRegNum = request.getParameter("customer_registration_number");
         String fullName = request.getParameter("full_name");
         String address = request.getParameter("address");
@@ -41,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        // Delegate registration logic to UserService
+        // registration logic to UserService
         String result = userService.registerUser(customerRegNum, fullName, address, nic, email, password);
 
         // Respond based on result from service layer

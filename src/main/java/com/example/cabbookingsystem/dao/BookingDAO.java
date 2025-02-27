@@ -144,7 +144,6 @@ public class BookingDAO {
         String orderNumber = generateOrderNumber();
         booking.setOrderNumber(orderNumber);
 
-
         // Retrieve Driver ID
         int driverId = getDriverIdByCarId(booking.getCarId());
         if (driverId == -1) {
@@ -159,11 +158,10 @@ public class BookingDAO {
             return false;
         }
 
-
         String query = "INSERT INTO bookings (order_number, customer_name, address, telephone, destination, booking_date, " +
                 "scheduled_date, scheduled_time, status, car_id, driver_id, customer_registration_number, " +
                 "total_amount, confirmed_by_employee, fare_type, base_fare, distance, tax_rate, discount_rate, customer_email) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; // ✅ 20 Placeholders
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, booking.getOrderNumber());
             stmt.setString(2, booking.getCustomerName());
@@ -256,7 +254,7 @@ public class BookingDAO {
     }
 
     public boolean updateBookingStatus(String orderNumber, String status, String confirmedByEmployee) {
-        System.out.println("🔍 DEBUG: Attempting to update booking status...");
+        System.out.println(" DEBUG: Attempting to update booking status...");
         System.out.println("➡ Order Number: " + orderNumber);
         System.out.println("➡ Status: " + status);
         System.out.println("➡ Confirmed By: " + confirmedByEmployee);
@@ -268,7 +266,7 @@ public class BookingDAO {
             stmt.setString(3, orderNumber);
 
             int rowsAffected = stmt.executeUpdate();
-            System.out.println("✅ Update Success: Rows Affected = " + rowsAffected);
+            System.out.println(" Update Success: Rows Affected = " + rowsAffected);
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -488,13 +486,54 @@ public class BookingDAO {
     }
 
 
-    public boolean updateBookingDetails(String orderNumber, double baseFare, double distance, double taxRate, double discountRate, double totalAmount) {
-        LOGGER.log(Level.INFO, " Updating Booking: Base Fare: {0}, Distance: {1}, Tax: {2}, Discount: {3}, Total Fare: {4} for Order: {5}",
-                new Object[]{baseFare, distance, taxRate, discountRate, totalAmount, orderNumber});
+    // Update general booking details (e.g., customer name, address, etc.)
+    public boolean updateBookingDetails(String orderNumber, Booking booking) {
+        String sql = """
+        UPDATE bookings SET 
+        customer_name = ?, 
+        address = ?, 
+        telephone = ?, 
+        destination = ?, 
+        scheduled_date = ?, 
+        scheduled_time = ?, 
+        fare_type = ?, 
+        customer_email = ? 
+        WHERE order_number = ?;
+        """;
 
-        String query = "UPDATE bookings SET base_fare = ?, distance = ?, tax_rate = ?, discount_rate = ?, total_amount = ? WHERE order_number = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, booking.getCustomerName());
+            stmt.setString(2, booking.getCustomerAddress());
+            stmt.setString(3, booking.getPhoneNumber());
+            stmt.setString(4, booking.getDestination());
+            stmt.setDate(5, new java.sql.Date(booking.getScheduledDate().getTime()));
+            stmt.setString(6, booking.getScheduledTime());
+            stmt.setString(7, booking.getFareType());
+            stmt.setString(8, booking.getCustomerEmail());
+            stmt.setString(9, orderNumber);
 
-        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            int rowsUpdated = stmt.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    // Update financial details (e.g., base fare, distance, total amount)
+    public boolean updateBookingFinancials(String orderNumber, double baseFare, double distance, double taxRate,
+                                           double discountRate, double totalAmount) {
+        String sql = """
+        UPDATE bookings SET 
+        base_fare = ?, 
+        distance = ?, 
+        tax_rate = ?, 
+        discount_rate = ?, 
+        total_amount = ? 
+        WHERE order_number = ?;
+        """;
+
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setDouble(1, baseFare);
             stmt.setDouble(2, distance);
             stmt.setDouble(3, taxRate);
@@ -503,14 +542,11 @@ public class BookingDAO {
             stmt.setString(6, orderNumber);
 
             int rowsUpdated = stmt.executeUpdate();
-            LOGGER.log(Level.INFO, " Rows Updated: {0}", rowsUpdated);
-
             return rowsUpdated > 0;
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, " SQL Exception during update: {0}", e.getMessage());
             e.printStackTrace();
-            return false;
         }
+        return false;
     }
 
 }

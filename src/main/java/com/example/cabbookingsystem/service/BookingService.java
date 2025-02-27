@@ -30,7 +30,6 @@ public class BookingService {
             return "missing_fields";
         }
 
-        // Parsing the car ID and scheduled date
         int carId = Integer.parseInt(carIdStr);
         Date scheduledDate;
         try {
@@ -56,7 +55,6 @@ public class BookingService {
         double baseFare = 10.0;
         double distance = 5.0;
 
-        // Parse tax and discount rates
         double taxRate = (taxRateStr != null && !taxRateStr.isEmpty()) ? Double.parseDouble(taxRateStr) : 5.0;
         double discountRate = (discountRateStr != null && !discountRateStr.isEmpty()) ? Double.parseDouble(discountRateStr) : 10.0;
 
@@ -120,7 +118,14 @@ public class BookingService {
 
         // Update booking status to "Cancelled"
         boolean success = bookingDAO.updateBookingStatus(orderNumber, "Cancelled", confirmedByEmployee);
-        return success ? "success" : "update_failed";  // Return success or failure
+        if (success) {
+            // Send email after cancellation
+            Booking booking = bookingDAO.getBookingByOrderNumber(orderNumber);
+            EmailSender.sendBookingUpdateEmail(booking, "Cancelled");
+            return "success";
+        } else {
+            return "update_failed";
+        }
     }
     // Method to complete a booking
     public String completeBooking(String orderNumber) {
@@ -137,7 +142,17 @@ public class BookingService {
 
         // Update booking status to "Completed"
         boolean success = bookingDAO.completeBooking(orderNumber);
-        return success ? "success" : "update_failed";  // Return success or failure
+        if (success) {
+            // Send email after the booking is completed
+            Booking booking = bookingDAO.getBookingByOrderNumber(orderNumber);
+            if (booking != null) {
+                EmailSender.sendSuccessfullyBookingEmail(booking); // Send email about the successful completion
+            }
+
+            return "success";
+        } else {
+            return "update_failed";
+        }
     }
 
     // Method to delete a booking
@@ -147,8 +162,9 @@ public class BookingService {
         }
 
         boolean success = bookingDAO.deleteBooking(orderNumber);
-        return success ? "success" : "delete_failed";  // Return success or failure
+        return success ? "success" : "delete_failed";
     }
+
     // Method to handle the update booking logic
     public String updateBooking(String orderNumber, String customerName, String address, String telephone, String destination,
                                 String scheduledDate, String scheduledTime, String fareType, double baseFare,
@@ -158,7 +174,7 @@ public class BookingService {
         Booking booking = bookingDAO.getBookingByOrderNumber(orderNumber);
 
         if (booking == null) {
-            return "error_booking_not_found"; // If booking doesn't exist, return error
+            return "error_booking_not_found";
         }
 
         // Update the booking with new details
@@ -166,10 +182,18 @@ public class BookingService {
         booking.setCustomerAddress(address);
         booking.setPhoneNumber(telephone);
         booking.setDestination(destination);
-        booking.setScheduledDate(java.sql.Date.valueOf(scheduledDate));  // Assuming the date is passed in "yyyy-MM-dd" format
+        booking.setScheduledDate(java.sql.Date.valueOf(scheduledDate));
         booking.setScheduledTime(scheduledTime);
         booking.setFareType(fareType);
         booking.setCustomerEmail(customerEmail);
+
+        // Update the database with these general booking details
+        boolean generalUpdateSuccess = bookingDAO.updateBookingDetails(orderNumber, booking);
+        if (!generalUpdateSuccess) {
+            return "error_general_booking_update_failed";
+        }
+
+        //  update the financial details
         booking.setBaseFare(baseFare);
         booking.setDistance(distance);
         booking.setTaxRate(taxRate);
@@ -179,10 +203,17 @@ public class BookingService {
         double totalAmount = booking.calculateFare();
         booking.setTotalAmount(totalAmount);
 
-        // Call the update method in DAO to save the changes
-        boolean success = bookingDAO.updateBookingDetails(orderNumber, baseFare, distance, taxRate, discountRate, totalAmount);
+        // Update financial details in the database
+        boolean financialUpdateSuccess = bookingDAO.updateBookingFinancials(orderNumber, baseFare,
+                distance, taxRate, discountRate, totalAmount);
 
-        return success ? "success" : "error_db_update"; // Return success or database failure message
+        if (financialUpdateSuccess) {
+            // Send email after the update
+            EmailSender.sendBookingUpdateEmail(booking, "Updated");
+            return "success";
+        } else {
+            return "error_financial_update_failed";
+        }
     }
 
     // Method to calculate the bill
@@ -194,9 +225,29 @@ public class BookingService {
             return "booking_not_found";  // Booking doesn't exist
         }
 
+        // Check if the bill has already been calculated
+        if (bookingDAO.isBillAlreadyCalculated(orderNumber)) {
+            return "already_calculated";  // This order has already been calculated
+        }
         // Ensure booking is confirmed before calculating the bill
         if (!"Confirmed".equals(booking.getStatus())) {
             return "not_confirmed";  // Booking not confirmed yet
+        }
+        // Validate the inputs for distance, base fare, tax rate, and discount rate
+        if (distance <= 0) {
+            return "Error: Please enter a valid distance greater than 0.";  // Invalid distance
+        }
+
+        if (baseFare <= 0) {
+            return "Error: Please enter a valid base fare greater than 0.";  // Invalid base fare
+        }
+
+        if (taxRate < 0 || taxRate > 100) {
+            return "Error: Please enter a valid tax rate (0-100%).";  // Invalid tax rate
+        }
+
+        if (discountRate < 0 || discountRate > 100) {
+            return "Error: Please enter a valid discount rate (0-100%).";  // Invalid discount rate
         }
 
         // Set the updated details in the booking object
@@ -225,9 +276,15 @@ public class BookingService {
         booking.setTotalAmount(totalFare);
 
         // Update the booking details in the database
-        boolean updated = bookingDAO.updateBookingDetails(orderNumber, baseFare, distance, taxRate, discountRate, totalFare);
+        boolean updated = bookingDAO.updateBookingFinancials(orderNumber, baseFare, distance, taxRate, discountRate, totalFare);
 
-        return updated ? "success:" + String.format("%.2f", totalFare) : "update_failed";  // Return success or failure
+        if (updated) {
+            // Send the email with the booking details
+            EmailSender.sendBillEmail(booking); // Send the email after calculating the bill
+            return "success:" + String.format("%.2f", totalFare);
+        } else {
+            return "update_failed";
+        }
     }
 
 
